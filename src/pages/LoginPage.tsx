@@ -30,9 +30,9 @@ export default function AdminLoginPage() {
 
     return (
         <div className="bg-white min-h-screen flex  justify-center p-10 rounded shadow-md radius-lg col-span-12">
-            <div className="flex items-center justify-center bg-white">
-                <div className="bg-white p-8 w-full max-w-md">
-                    <h2 className="text-2xl font-bold mb-6 text-center">PBIS</h2>
+            <div className="flex items-center  bg-white inset-x-0 top-0">
+                <div className="bg-white p-8 w-full max-w-md flex flex-col">
+                    <h2 className="text-2xl font-bold mb-6 ">PBIS</h2>
                     {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
                     <form className="space-y-4" onSubmit={handleLogin}>
                         <div className="mb-4">
@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
                             />
                         </div>
                         <button type="submit" onClick={handleLogin}
-                            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                            className="w-full bg-[#463b66] text-white py-2 rounded hover:bg-[#9F8383] transition duration-300">
                             Login
                         </button>
                     </form>
