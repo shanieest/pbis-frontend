@@ -41,7 +41,7 @@ export default function Sidebar() {
 
                     <li>
                         <Link 
-                            to="#"
+                            to="/counseling"
                             className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
                                 Counseling
@@ -50,7 +50,7 @@ export default function Sidebar() {
 
                     <li>
                         <Link 
-                            to="#"
+                            to="/user-management"
                             className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
                                 User Management

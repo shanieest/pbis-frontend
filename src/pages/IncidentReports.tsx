@@ -1,6 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface Incident {
     date: string;
@@ -64,7 +65,17 @@ export default function Incidentreports(){
                         Incident Reports
                     </h1>
                     <div className="relative">
+
+                        <button className="absolute right-24 top-0 bg-[#8B5E83] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors">
+                            Add Report
+                        </button>
+                        <button className="absolute right-0 top-0 bg-[#486989] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors">
+                            Export
+                        </button>
+                        <table className="w-full border-collapse border border-gray-300 mt-12">
+                            <thead>
                         <div className="mb-4">
+                            <p>Incident Reports</p>
                             <input
                                 type="text"
                                 placeholder="Search by name..."
@@ -73,25 +84,17 @@ export default function Incidentreports(){
                                 className="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent transition"
                             />
                         </div>
-                        
-                        <table className="w-full border-collapse border border-gray-300 mt-12">
-                            <thead>
-                                <tr style={{ backgroundColor: "#8B5E83", color: "white" }}>
-                                    <th className="border border-gray-300 p-2">Name</th>
-                                    <th className="border border-gray-300 p-2"></th>
-                                </tr>
                             </thead>
                             <tbody>
                                 {filteredData.map((user, index) => (
                                     <>
                                         <tr key={index} style={{ backgroundColor: "#8B5E83", color: "white" }}>
-                                            <td className="border border-gray-300 p-2">{user.name}</td>
-                                            <td className="border border-gray-300 p-2">
+                                            <td className="border border-gray-300 p-2">{user.name}
                                                 <button
                                                     onClick={() => toggleRow(index)}
-                                                    className="bg-white text-black px-2 py-1 rounded"
+                                                    className="text-white px-2 py-1 rounded"
                                                 >
-                                                    {expandedRows.has(index) ? "Collapse" : "Expand"}
+                                                    {expandedRows.has(index) ? <FaChevronUp /> : <FaChevronDown />}
                                                 </button>
                                             </td>
                                         </tr>
