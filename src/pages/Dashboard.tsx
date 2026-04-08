@@ -1,11 +1,19 @@
-export default function Dasgboard() {
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
+
+export default function Dashboard() {
     return (
-        <div className="bg-[#463b66] min-h-screen flex items-center justify-center p-10 rounded shadow-md radius-lg col-span-12">
-            <div className="flex items-center justify-center bg-white rounded shadow-md ">
-                <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-                    <h2 className="text-2xl font-bold mb-6 text-center">Dashboard</h2>
-                </div>
+        <div className="flex min-h-screen">      
+            <Sidebar />
+            
+            <div className="flex flex-col flex-1">
+                <Header />
+                <main className="flex-1 p-10 bg-gray-50">                            
+                    <h1 className="text-3xl font-bold font-serif text-black tracking-wide">
+                        Dashboard
+                    </h1>
+                </main>
             </div>
         </div>
-    )
+    );
 }
