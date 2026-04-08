@@ -24,22 +24,36 @@ export default function Sidebar() {
                         <NavLink 
                             to="/dashboard"
                     
-                            className="flex items-center gap-3 p-2 rounded-lg"
+                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
-                            <span className={`text-lg font-semibold ${!isOpen && "hidden"}`}>
                                 Dashboard
-                            </span>
                         </NavLink>
                     </li>
 
                     <li>
                         <NavLink 
                             to="#"
-                            className="flex items-center gap-3 p-2 rounded-lg"
+                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
-                            <span className={`text-lg font-semibold ${!isOpen && "hidden"}`}>
                                 Incidents Report
-                            </span>
+                        </NavLink>
+                    </li>
+
+                    <li>
+                        <NavLink 
+                            to="#"
+                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
+                            >
+                                Counseling
+                        </NavLink>
+                    </li>
+
+                    <li>
+                        <NavLink 
+                            to="#"
+                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
+                            >
+                                User Management
                         </NavLink>
                     </li>
                 </ul>

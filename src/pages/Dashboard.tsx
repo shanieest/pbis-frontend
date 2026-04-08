@@ -12,6 +12,8 @@ export default function Dashboard() {
                     <h1 className="text-3xl font-bold font-serif text-black tracking-wide">
                         Dashboard
                     </h1>
+
+
                 </main>
             </div>
         </div>
