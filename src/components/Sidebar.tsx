@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { 
-    FaBars
+    FaBars,
+    FaThLarge,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -21,6 +22,8 @@ export default function Sidebar() {
             <nav className="flex flex-col gap-4">
                 <ul>
                     <li>
+                        <FaThLarge className="text-xl shrink-0" />
+
                         <Link 
                             to="/dashboard"
                     
@@ -33,7 +36,7 @@ export default function Sidebar() {
                     <li>
                         <Link 
                             to="/incident-reports"
-                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
+                            className="flex items-center gap-3 p-2  hover:bg-white/10 transition-colors border-t border-white-700 pt-4"
                             >
                                 Incidents Report
                         </Link>
@@ -42,7 +45,7 @@ export default function Sidebar() {
                     <li>
                         <Link 
                             to="/counseling"
-                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
+                            className="flex items-center gap-3 p-2 hover:bg-white/10 transition-colors border-t border-white-700 pt-4"
                             >
                                 Counseling
                         </Link>
@@ -51,13 +54,18 @@ export default function Sidebar() {
                     <li>
                         <Link 
                             to="/user-management"
-                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
+                            className="flex items-center gap-3 p-2 hover:bg-white/10 transition-colors border-t border-white-700 pt-4"
                             >
                                 User Management
                         </Link>
                     </li>
                 </ul>
             </nav>
+
+            <div className="mt-auto p-2 text-sm text-gray-300 flex items-center gap-2 border-t border-white-700 pt-4">
+                <p className="text-xs">Logged in as:</p>
+                <span className="font-bold">User</span>
+            </div>
         </aside>
     );
 }

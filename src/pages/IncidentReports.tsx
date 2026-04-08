@@ -64,7 +64,7 @@ export default function Incidentreports(){
                     <h1 className="text-3xl font-bold font-serif text-black tracking-wide mb-8">
                         Incident Reports
                     </h1>
-                    <div className="relative">
+                    <div className="flex flex-col gap-4 relative">
 
                         <button className="absolute right-24 top-0 bg-[#8B5E83] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors">
                             Add Report
@@ -74,16 +74,16 @@ export default function Incidentreports(){
                         </button>
                         <table className="w-full border-collapse border border-gray-300 mt-12">
                             <thead>
-                        <div className="mb-4">
-                            <p>Incident Reports</p>
-                            <input
-                                type="text"
-                                placeholder="Search by name..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent transition"
-                            />
-                        </div>
+                                <div className="">
+                                    <p>Incident Reports</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Search by name..."
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        className="w-full md:w-1/3 px-4  border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent transition"
+                                    />
+                                </div>
                             </thead>
                             <tbody>
                                 {filteredData.map((user, index) => (
