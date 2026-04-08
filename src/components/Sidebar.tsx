@@ -32,7 +32,7 @@ export default function Sidebar() {
 
                     <li>
                         <Link 
-                            to="#"
+                            to="/incident-reports"
                             className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
                                 Incidents Report
