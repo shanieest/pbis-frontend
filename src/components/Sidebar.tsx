@@ -2,7 +2,7 @@ import { useState } from "react";
 import { 
     FaBars
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
@@ -21,40 +21,40 @@ export default function Sidebar() {
             <nav className="flex flex-col gap-4">
                 <ul>
                     <li>
-                        <NavLink 
+                        <Link 
                             to="/dashboard"
                     
                             className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
                                 Dashboard
-                        </NavLink>
+                        </Link>
                     </li>
 
                     <li>
-                        <NavLink 
+                        <Link 
                             to="#"
                             className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
                                 Incidents Report
-                        </NavLink>
+                        </Link>
                     </li>
 
                     <li>
-                        <NavLink 
+                        <Link 
                             to="#"
                             className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
                                 Counseling
-                        </NavLink>
+                        </Link>
                     </li>
 
                     <li>
-                        <NavLink 
+                        <Link 
                             to="#"
                             className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
                             >
                                 User Management
-                        </NavLink>
+                        </Link>
                     </li>
                 </ul>
             </nav>
