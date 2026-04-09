@@ -5,7 +5,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface Incident {
     date: string;
-    description: string;
+    behavior: string;
 }
 
 interface UserIncident {
@@ -17,27 +17,27 @@ const sampleData: UserIncident[] = [
     {
         name: "Dela Cruz, Juan",
         incidents: [
-            { date: "2023-10-01", description: "Minor incident" },
-            { date: "2023-10-05", description: "Another incident" }
+            { date: "2023-10-01", behavior: "Minor incident" },
+            { date: "2023-10-05", behavior: "Another incident" }
         ]
     },
     {
         name: "Dela Cruz, Juan",
         incidents: [
-            { date: "2023-09-15", description: "Report filed" }
+            { date: "2023-09-15", behavior: "Report filed" }
         ]
     },
     {
         name: "Dela Cruz, Maria",
         incidents: [
-            { date: "2023-08-20", description: "Safety concern" },
-            { date: "2023-09-10", description: "Follow-up" },
-            { date: "2023-10-02", description: "Resolution" }
+            { date: "2023-08-20", behavior: "Safety concern" },
+            { date: "2023-09-10", behavior: "Follow-up" },
+            { date: "2023-10-02", behavior: "Resolution" }
         ]
     }
 ];
 
-export default function Incidentreports(){
+export default function Incidentreports() {
     const [searchTerm, setSearchTerm] = useState("");
     const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
 
@@ -60,67 +60,80 @@ export default function Incidentreports(){
             <Sidebar />
             <div className="flex flex-col flex-1">
                 <Header />
-                <main className="flex-1 p-10 bg-gray-50">                            
+                <main className="flex-1 p-10 bg-gray-50">
                     <h1 className="text-3xl font-bold font-serif text-black tracking-wide mb-8">
                         Incident Reports
                     </h1>
                     <div className="flex flex-col gap-4 relative">
-
                         <button className="absolute right-24 top-0 bg-[#8B5E83] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors">
                             Add Report
                         </button>
                         <button className="absolute right-0 top-0 bg-[#486989] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors">
                             Export
                         </button>
-                        <table className="w-full border-collapse border border-gray-300 mt-12">
-                            <thead>
-                                <div className="">
-                                    <p>Incident Reports</p>
-                                    <input
-                                        type="text"
-                                        placeholder="Search by name..."
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="w-full md:w-1/3 px-4  border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent transition"
-                                    />
-                                </div>
-                            </thead>
-                            <tbody>
-                                {filteredData.map((user, index) => (
-                                    <>
-                                        <tr key={index} style={{ backgroundColor: "#8B5E83", color: "white" }}>
-                                            <td className="border border-gray-300 p-2">{user.name}
-                                                <button
-                                                    onClick={() => toggleRow(index)}
-                                                    className="text-white px-2 py-1 rounded"
-                                                >
-                                                    {expandedRows.has(index) ? <FaChevronUp /> : <FaChevronDown />}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        {expandedRows.has(index) && (
-                                            <tr>
-                                                <td colSpan={2} className="border border-gray-300 p-2 bg-gray-100">
-                                                    <div>
-                                                        <h3 className="font-bold">Incidents:</h3>
-                                                        <ul>
-                                                            {user.incidents.map((incident, i) => (
-                                                                <li key={i}>
-                                                                    <strong>{incident.date}:</strong> {incident.description}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
+
+                        <div className="mt-12">
+                            <div className="flex items-center justify-between mb-3">
+                                <p className="font-semibold text-gray-700">Incident Reports</p>
+                                <input
+                                    type="text"
+                                    placeholder="Search by name..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent transition"
+                                />
+                            </div>
+
+                            <table className="w-full border-collapse border border-gray-300">
+                                <tbody>
+                                    {filteredData.map((user, index) => (
+                                        <>
+                                            {/* Collapsible Header Row */}
+                                            <tr
+                                                key={index}
+                                                className="cursor-pointer"
+                                                style={{ backgroundColor: "#8B5E83", color: "white" }}
+                                                onClick={() => toggleRow(index)}
+                                            >
+                                                <td className="border border-gray-300 p-3 font-semibold">
+                                                    {user.name}
+                                                </td>
+                                                <td className="border border-gray-300 p-3 text-right w-10">
+                                                    {expandedRows.has(index) ? <FaChevronUp className="ml-auto" /> : <FaChevronDown className="ml-auto" />}
                                                 </td>
                                             </tr>
-                                        )}
-                                    </>
-                                ))}
-                            </tbody>
-                        </table>
+
+                                            {/* Expanded Incident Table */}
+                                            {expandedRows.has(index) && (
+                                                <tr>
+                                                    <td colSpan={2} className="border border-gray-300 bg-gray-50 p-0">
+                                                        <table className="w-full border-collapse">
+                                                            <thead>
+                                                                <tr className="bg-gray-200 text-gray-700 text-sm">
+                                                                    <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Date</th>
+                                                                    <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Behavior</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {user.incidents.map((incident, i) => (
+                                                                    <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                                                        <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.date}</td>
+                                                                        <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.behavior}</td>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            )}
+                                        </>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </main>
             </div>
         </div>
-    )
+    );
 }
