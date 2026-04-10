@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaChevronDown, FaUser, FaSignOutAlt } from "react-icons/fa";
+import { Link } from "react-router";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,15 +16,15 @@ export default function Header() {
 
                     {isOpen && (
                         <div className="absolute right-0 top-12 w-48 bg-white text-gray-800 rounded shadow-lg py-2 z-50 font-normal text-sm">
-                            <a href="#" className="flex items-center px-4 py-2 hover:bg-gray-100 gap-3">
+                            <Link to="/profile" className="flex items-center px-4 py-2 hover:bg-gray-100 gap-3">
                                 <FaUser className="text-gray-500" /> Profile
-                            </a>
+                            </Link>
 
                             <hr className="my-1 border-gray-200" />
                             
-                            <a href="#" className="flex items-center px-4 py-2 hover:bg-gray-100 gap-3 text-red-600">
+                            <Link to="/" className="flex items-center px-4 py-2 hover:bg-gray-100 gap-3">
                                 <FaSignOutAlt /> Logout
-                            </a>
+                            </Link>
                         </div>
                     )}
                 </div>

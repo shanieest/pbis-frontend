@@ -3,6 +3,7 @@ import Dashboard from './pages/Dashboard';
 import IncidentReports from './pages/IncidentReports';
 import Counseling from './pages/Counseling';
 import UserManagement from './pages/UserManagement';
+import Profile from './pages/Profile';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/incident-reports" element={<IncidentReports />} />
           <Route path="/counseling" element={<Counseling />}/>
           <Route path="/user-management" element={<UserManagement />}/>
+          <Route path="/profile" element={<Profile />}/>
       </Routes>
     </BrowserRouter>
   )
