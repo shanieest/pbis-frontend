@@ -22,10 +22,12 @@ export default function UserManagement() {
                     <h1 className="text-3xl font-bold font-serif text-black tracking-wide mb-8">
                         Manage Users
                     </h1>
-                    
-                    <button onClick={() => setIsAddModalOpen(true) } className="bg-[#587a33] text-white px-4 py-2 rounded mb-6 hover:bg-[#D6B0B1] transition-colors">
-                        Add User
-                    </button>
+                    <div className="absolute right-10 mb-6 top-30">
+                        <button onClick={() => setIsAddModalOpen(true) } className="bg-[#587a33] text-white px-4 py-2 rounded mb-6 hover:bg-[#D6B0B1] transition-colors">
+                            Add User
+                        </button>
+                    </div>
+
                     <div className="bg-white rounded-lg shadow p-6">
                         <table className="w-full table-auto border-collapse  text-white rounded-lg overflow-hidden">
                             <thead>

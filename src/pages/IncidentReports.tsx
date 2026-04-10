@@ -264,7 +264,7 @@ export default function IncidentReports() {
                                 </div>
                                 <div className="mt-6 flex justify-end gap-3">
                                     <button
-                                        onClick={() => setIsAddModalOpen(false)}
+                                        onClick={() => setIsAddModalOpen(true)}
                                         className="rounded bg-[#587a33] px-4 py-2 text-white hover:bg-[#6e4765]"
                                     >
                                         Minor

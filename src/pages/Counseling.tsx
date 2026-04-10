@@ -45,6 +45,9 @@ export default function Counseling() {
     const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [newReportUser, setNewReportUser] = useState(defaultUser);
+    const [newReportLastName, setNewReportLastName] = useState("");
+    const [newReportFirstName, setNewReportFirstName] = useState("");
+    const [newReportMiddleName, setNewReportMiddleName] = useState("");
     const [newReportDate, setNewReportDate] = useState("");
     const [newReportBehavior, setNewReportBehavior] = useState("");
 
@@ -63,23 +66,28 @@ export default function Counseling() {
     };
 
     const handleAddReport = () => {
-        if (!newReportUser.trim() || !newReportDate || !newReportBehavior.trim()) {
+        const fullName = `${newReportLastName}, ${newReportFirstName}${newReportMiddleName ? ' ' + newReportMiddleName : ''}`.trim();
+        
+        if (!fullName || !newReportDate || !newReportBehavior.trim()) {
             return;
         }
 
         setData(prev => {
-            const userExists = prev.some(user => user.name === newReportUser);
+            const userExists = prev.some(user => user.name === fullName);
             if (userExists) {
                 return prev.map(user =>
-                    user.name === newReportUser
+                    user.name === fullName
                         ? { ...user, incidents: [...user.incidents, { date: newReportDate, behavior: newReportBehavior }] }
                         : user
                 );
             }
 
-            return [...prev, { name: newReportUser, incidents: [{ date: newReportDate, behavior: newReportBehavior }] }];
+            return [...prev, { name: fullName, incidents: [{ date: newReportDate, behavior: newReportBehavior }] }];
         });
 
+        setNewReportLastName("");
+        setNewReportFirstName("");
+        setNewReportMiddleName("");
         setNewReportDate("");
         setNewReportBehavior("");
         setIsAddModalOpen(false);
@@ -95,14 +103,6 @@ export default function Counseling() {
                         Counseling
                     </h1>
                     <div className="flex flex-col gap-4 relative">
-                        <div className="absolute right-0 top-0 flex gap-4">
-                            <button
-                                onClick={() => setIsAddModalOpen(true)}
-                                className="bg-[#8B5E83] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors"
-                            >
-                                Report
-                            </button>
-                        </div>
 
                         <div className="mt-16 bg-white rounded-lg shadow p-6 overflow-x-auto">
                             <div className="flex items-center justify-between mb-3">
@@ -154,7 +154,7 @@ export default function Counseling() {
                                                                 </tbody>
                                                             </table>
                                                             
-                                                            <div className="flex gap-3 flex-wrap">
+                                                            <div className="flex gap-3 flex-wrap right-4 flex-row-reverse">
                                                                 <button
                                                                     onClick={() => console.log("Modify action for", user.name)}
                                                                     className="bg-[#ff7800] text-white px-4 py-2 rounded hover:bg-[#6e4765] transition-colors text-sm font-medium"
@@ -204,8 +204,8 @@ export default function Counseling() {
                                         <span className="text-sm font-medium text-gray-700">Last Name</span>
                                         <input
                                             type="text"
-                                            value={newReportUser}
-                                            onChange={(e) => setNewReportUser(e.target.value)}
+                                            value={newReportLastName}
+                                            onChange={(e) => setNewReportLastName(e.target.value)}
                                             className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
                                             placeholder="Enter last name"
                                         />
@@ -214,8 +214,8 @@ export default function Counseling() {
                                         <span className="text-sm font-medium text-gray-700">First Name</span>
                                         <input
                                             type="text"
-                                            value={newReportUser}
-                                            onChange={(e) => setNewReportUser(e.target.value)}
+                                            value={newReportFirstName}
+                                            onChange={(e) => setNewReportFirstName(e.target.value)}
                                             className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
                                             placeholder="Enter first name"
                                         />
@@ -224,8 +224,8 @@ export default function Counseling() {
                                         <span className="text-sm font-medium text-gray-700">Middle Name</span>
                                         <input
                                             type="text"
-                                            value={newReportUser}
-                                            onChange={(e) => setNewReportUser(e.target.value)}
+                                            value={newReportMiddleName}
+                                            onChange={(e) => setNewReportMiddleName(e.target.value)}
                                             className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
                                             placeholder="Enter middle name"
                                         />
