@@ -62,7 +62,7 @@ export default function Sidebar() {
                             className="flex items-center gap-3 p-2 hover:bg-white/10 transition-colors border-t border-white-700 pt-4"
                             >
                             <FaUsersCog className="text-xl shrink-0" />
-                                User Management
+                                Manage Users
                         </Link>
                     </li>
                 </ul>

@@ -11,6 +11,8 @@ export default function UserManagement() {
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
     const [middleName, setMiddleName] = useState('');
+    const [email, setEmail] = useState('');
+    const [role, setRole] = useState('');
     return (
         <div className="flex min-h-screen">
             <Sidebar />
@@ -18,7 +20,7 @@ export default function UserManagement() {
                 <Header />
                 <main className="flex-1 p-10 bg-gray-50">
                     <h1 className="text-3xl font-bold font-serif text-black tracking-wide mb-8">
-                        User Management
+                        Manage Users
                     </h1>
                     
                     <button onClick={() => setIsAddModalOpen(true) } className="bg-[#587a33] text-white px-4 py-2 rounded mb-6 hover:bg-[#D6B0B1] transition-colors">
@@ -106,6 +108,37 @@ export default function UserManagement() {
                                             placeholder="Enter middle name"
                                         />
                                     </label>
+                                    <label className="block">
+                                        <span className="text-sm font-medium text-gray-700">Email</span>
+                                        <input
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                            placeholder="Enter email"
+                                        />
+                                    </label>
+                                    <label className="block">
+                                        <span className="text-sm font-medium text-gray-700">Password</span>
+                                        <input
+                                            type="password"                                       
+                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                            placeholder="Enter password"
+                                        />
+                                    </label>
+                                    <label className="block">
+                                        <span className="text-sm font-medium text-gray-700">Role</span>
+                                        <select
+                                            value={role}
+                                            onChange={(e) => setRole(e.target.value)}
+                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                        >
+                                            <option value="">Select a role</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="user">Teacher</option>
+                                            <option value="counselor">Counselor</option>
+                                        </select>
+                                    </label>
                                 </div>
                                 <div className="mt-6 flex justify-end gap-3">
                                     <button
@@ -120,7 +153,8 @@ export default function UserManagement() {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    )
+                    }
         </div>
     )
 }
