@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import { 
@@ -5,8 +6,11 @@ import {
     FaPencilAlt
 } from 'react-icons/fa'
 
-
 export default function UserManagement() {
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [middleName, setMiddleName] = useState('');
     return (
         <div className="flex min-h-screen">
             <Sidebar />
@@ -17,7 +21,7 @@ export default function UserManagement() {
                         User Management
                     </h1>
                     
-                    <button className="bg-[#587a33] text-white px-4 py-2 rounded mb-6 hover:bg-[#D6B0B1] transition-colors">
+                    <button onClick={() => setIsAddModalOpen(true) } className="bg-[#587a33] text-white px-4 py-2 rounded mb-6 hover:bg-[#D6B0B1] transition-colors">
                         Add User
                     </button>
                     <div className="bg-white rounded-lg shadow p-6">
@@ -55,6 +59,68 @@ export default function UserManagement() {
                     </div>
                 </main>
             </div>
+
+            {isAddModalOpen && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                            <div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-xl">
+                                <div className="flex items-center justify-between mb-6">
+                                    <div>
+                                        <h2 className="text-2xl font-semibold">Add PBIS User</h2>
+                                        <p className="text-sm text-gray-600">Add a new user to the PBIS system.</p>
+                                    </div>
+                                    <button
+                                        onClick={() => setIsAddModalOpen(false)}
+                                        className="text-gray-500 hover:text-gray-700"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                                <div className="grid gap-4">
+                                    <label className="block">
+                                        <span className="text-sm font-medium text-gray-700">Last Name</span>
+                                        <input
+                                            type="text"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
+                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                            placeholder="Enter last name"
+                                        />
+                                    </label>
+                                    <label className="block">
+                                        <span className="text-sm font-medium text-gray-700">First Name</span>
+                                        <input
+                                            type="text"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
+                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                            placeholder="Enter first name"
+                                        />
+                                    </label>
+                                    <label className="block">
+                                        <span className="text-sm font-medium text-gray-700">Middle Name</span>
+                                        <input
+                                            type="text"
+                                            value={middleName}
+                                            onChange={(e) => setMiddleName(e.target.value)}
+                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                            placeholder="Enter middle name"
+                                        />
+                                    </label>
+                                </div>
+                                <div className="mt-6 flex justify-end gap-3">
+                                    <button
+                                        onClick={() => setIsAddModalOpen(false)}
+                                        className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button className="rounded bg-[#587a33] px-4 py-2 text-white hover:bg-[#6e4765]">
+                                        Add User
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
         </div>
     )
 }
