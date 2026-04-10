@@ -126,7 +126,7 @@ export default function IncidentReports() {
                             </button>
                             <button
                                 onClick={() => setIsExportModalOpen(true)}
-                                className="bg-[#486989] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors"
+                                className="bg-[#58b2ed] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors"
                             >
                                 Export
                             </button>
@@ -163,12 +163,13 @@ export default function IncidentReports() {
 
                                             {expandedRows.has(index) && (
                                                 <tr>
-                                                    <td colSpan={2} className="border border-gray-300 bg-gray-50 p-0">
+                                                    <td colSpan={3} className="border border-gray-300 bg-gray-50 p-0">
                                                         <table className="w-full border-collapse">
                                                             <thead>
                                                                 <tr className="bg-gray-200 text-gray-700 text-sm">
                                                                     <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Date</th>
                                                                     <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Behavior</th>
+                                                                    <th className="border border-gray-300 px-4 py-2 text-right font-semibold">Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -176,6 +177,11 @@ export default function IncidentReports() {
                                                                     <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                                                                         <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.date}</td>
                                                                         <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.behavior}</td>
+                                                                        <td className="border border-gray-300 px-4 py-2 text-right">
+                                                                            <button className="bg-[#587a33] text-white px-3 py-1 rounded text-sm hover:bg-[#D6B0B1] transition-colors">
+                                                                                Assess
+                                                                            </button>
+                                                                        </td>
                                                                     </tr>
                                                                 ))}
                                                             </tbody>
@@ -282,12 +288,6 @@ export default function IncidentReports() {
                                         <h2 className="text-2xl font-semibold">Export Reports</h2>
                                         <p className="text-sm text-gray-600">Export the current visible report data to CSV.</p>
                                     </div>
-                                    <button
-                                        onClick={() => setIsExportModalOpen(false)}
-                                        className="text-gray-500 hover:text-gray-700"
-                                    >
-                                        Minor
-                                    </button>
                                 </div>
                                 <div className="space-y-4">
                                     <p className="text-gray-700">This will export {filteredData.length} student record{filteredData.length === 1 ? "" : "s"} and their incidents.</p>
