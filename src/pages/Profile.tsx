@@ -17,7 +17,7 @@ export default function Profile() {
                             <img src="/profile-placeholder.png" alt="Profile" className="h-16 w-16 rounded-full mr-4" />
                             <div>
                                 <h2 className="text-xl font-semibold text-gray-800">Dela Cruz, Juan</h2>
-                                <p className="text-gray-600">delacruz.juan@wiscom</p>
+                                <p className="text-gray-600">delacruz.juan@wis.com</p>
                             </div>
                         </div>
                     </div>
