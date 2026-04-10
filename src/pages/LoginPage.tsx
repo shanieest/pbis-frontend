@@ -36,8 +36,8 @@ export default function LoginPage() {
 
             <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-10 py-16">
                 <div className="w-full max-w-md">
-                    <div className="mb-10">
-                        <span className="text-3xl font-extrabold text-[#8B5E83]">PBIS</span>
+                    <div className="mb-10 text-center">
+                        <span className="text-7xl font-extrabold text-black">PBIS</span>
                     </div>
 
                     {error && (

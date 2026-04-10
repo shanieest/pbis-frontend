@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Fragment, useState } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaWindowClose } from "react-icons/fa";
 
 interface Incident {
     date: string;
@@ -199,16 +199,16 @@ export default function IncidentReports() {
                     {isAddModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                             <div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-xl">
-                                <div className="flex items-center justify-between mb-6">
+                                <div className="flex items-center justify-between mb-6 bg-[#8B5E83] text-white p-4 rounded-tl-2xl rounded-tr-2xl">
                                     <div>
                                         <h2 className="text-2xl font-semibold">Add Incident Report</h2>
-                                        <p className="text-sm text-gray-600">Add a new report to any student record.</p>
+                                        <p className="text-sm text-white">Add a new report to any student record.</p>
                                     </div>
                                     <button
                                         onClick={() => setIsAddModalOpen(false)}
-                                        className="text-gray-500 hover:text-gray-700"
+                                        className=" hover:text-gray-700"
                                     >
-                                        Close
+                                        <FaWindowClose className="text-2xl" />
                                     </button>
                                 </div>
                                 <div className="grid gap-4">

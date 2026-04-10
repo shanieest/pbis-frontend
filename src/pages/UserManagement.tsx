@@ -3,7 +3,8 @@ import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import { 
     FaTrashAlt,
-    FaPencilAlt
+    FaPencilAlt,
+    FaWindowClose
 } from 'react-icons/fa'
 
 export default function UserManagement() {
@@ -74,9 +75,9 @@ export default function UserManagement() {
                                     </div>
                                     <button
                                         onClick={() => setIsAddModalOpen(false)}
-                                        className="text-gray-500 hover:text-gray-700"
+                                        className="hover:text-gray-700"
                                     >
-                                        Close
+                                        <FaWindowClose className="text-2xl" />
                                     </button>
                                 </div>
                                 <div className="grid gap-4">
