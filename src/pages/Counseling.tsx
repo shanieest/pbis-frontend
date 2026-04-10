@@ -37,21 +37,11 @@ const sampleData: UserIncident[] = [
     }
 ];
 
-const defaultUser = sampleData[0]?.name || "";
 
 export default function Counseling() {
-    const [data, setData] = useState<UserIncident[]>(sampleData);
     const [searchTerm, setSearchTerm] = useState("");
     const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [newReportUser, setNewReportUser] = useState(defaultUser);
-    const [newReportLastName, setNewReportLastName] = useState("");
-    const [newReportFirstName, setNewReportFirstName] = useState("");
-    const [newReportMiddleName, setNewReportMiddleName] = useState("");
-    const [newReportDate, setNewReportDate] = useState("");
-    const [newReportBehavior, setNewReportBehavior] = useState("");
-
-    const filteredData = data.filter(user =>
+    const filteredData = sampleData.filter(user =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -63,34 +53,6 @@ export default function Counseling() {
             newExpanded.add(index);
         }
         setExpandedRows(newExpanded);
-    };
-
-    const handleAddReport = () => {
-        const fullName = `${newReportLastName}, ${newReportFirstName}${newReportMiddleName ? ' ' + newReportMiddleName : ''}`.trim();
-        
-        if (!fullName || !newReportDate || !newReportBehavior.trim()) {
-            return;
-        }
-
-        setData(prev => {
-            const userExists = prev.some(user => user.name === fullName);
-            if (userExists) {
-                return prev.map(user =>
-                    user.name === fullName
-                        ? { ...user, incidents: [...user.incidents, { date: newReportDate, behavior: newReportBehavior }] }
-                        : user
-                );
-            }
-
-            return [...prev, { name: fullName, incidents: [{ date: newReportDate, behavior: newReportBehavior }] }];
-        });
-
-        setNewReportLastName("");
-        setNewReportFirstName("");
-        setNewReportMiddleName("");
-        setNewReportDate("");
-        setNewReportBehavior("");
-        setIsAddModalOpen(false);
     };
 
     return (
@@ -118,7 +80,7 @@ export default function Counseling() {
 
                             <table className="w-full border-collapse border border-gray-300">
                                 <tbody>
-                                    {filteredData.map((user, index) => (
+                                    {filteredData.map((user: UserIncident, index: number) => (
                                         <Fragment key={index}>
                                             <tr
                                                 className="cursor-pointer"
@@ -185,88 +147,6 @@ export default function Counseling() {
                         </div>
                     </div>
 
-                    {isAddModalOpen && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-                            <div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-xl">
-                                <div className="flex items-center justify-between mb-6">
-                                    <div>
-                                        <h2 className="text-2xl font-semibold border-b-2 border-[#8B5E83] pb-2">Assessment</h2>
-                                    </div>
-                                    <button
-                                        onClick={() => setIsAddModalOpen(false)}
-                                        className="text-gray-500 hover:text-gray-700"
-                                    >
-                                        Close
-                                    </button>
-                                </div>
-                                <div className="grid gap-4">
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">Last Name</span>
-                                        <input
-                                            type="text"
-                                            value={newReportLastName}
-                                            onChange={(e) => setNewReportLastName(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            placeholder="Enter last name"
-                                        />
-                                    </label>
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">First Name</span>
-                                        <input
-                                            type="text"
-                                            value={newReportFirstName}
-                                            onChange={(e) => setNewReportFirstName(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            placeholder="Enter first name"
-                                        />
-                                    </label>
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">Middle Name</span>
-                                        <input
-                                            type="text"
-                                            value={newReportMiddleName}
-                                            onChange={(e) => setNewReportMiddleName(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            placeholder="Enter middle name"
-                                        />
-                                    </label>
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">Date</span>
-                                        <input
-                                            type="date"
-                                            value={newReportDate}
-                                            onChange={(e) => setNewReportDate(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                        />
-                                    </label>
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">Behavior</span>
-                                        <textarea
-                                            value={newReportBehavior}
-                                            onChange={(e) => setNewReportBehavior(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            rows={4}
-                                            placeholder="Describe the incident"
-                                        />
-                                    </label>
-                                </div>
-                                <div className="mt-6 flex justify-end gap-3">
-                                    <button
-                                        onClick={() => setIsAddModalOpen(false)}
-                                        className="rounded bg-[#587a33] px-4 py-2 text-white hover:bg-[#6e4765]"
-                                    >
-                                        Minor
-                                    </button>
-                                    <button
-                                        onClick={handleAddReport}
-                                        className="rounded bg-[#ff7800] px-4 py-2 text-white hover:bg-[#6e4765]"
-                                    >
-                                        Moderate/Severe
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
                 </main>
             </div>
         </div>

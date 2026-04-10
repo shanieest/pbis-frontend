@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/design.png";
+import Westfields from "../assets/Westfields.png";
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -77,6 +79,15 @@ export default function LoginPage() {
                 </div>
             </div>
 
+            <div className="hidden md:block w-1/2">
+                <div className="h-full flex items-center justify-center">
+                    <img src={Logo} alt="Login Illustration" className="w-3/4" />
+                </div>
+            </div>
+
+            <footer className="absolute bottom-4 w-full text-sm text-gray-500 left-">
+                    <img src={Westfields} alt="Westfields Logo" className="h-10" />
+            </footer>
         </div>
     );
 }
