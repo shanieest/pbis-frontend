@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Fragment, useState } from "react";
-import { FaChevronDown, FaChevronUp, FaWindowClose } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaWindowClose, FaSearch } from "react-icons/fa";
 
 interface Incident {
     date: string;
@@ -133,18 +133,19 @@ export default function IncidentReports() {
                         </div>
 
                         <div className="mt-16 bg-white rounded-lg shadow p-6 overflow-x-auto">
-                            <div className="flex items-center justify-between mb-3">
-                                <p className="font-semibold text-gray-700">Incident Reports</p>
+                            <div className="flex items-center justify-between mb-3 relative  bg-[#8B5E83] text-white p-4 rounded-tl-lg rounded-tr-lg">
+                                <p className="font-semibold text-white">Incident Reports</p>
+                                
                                 <input
                                     type="text"
                                     placeholder="Search by name..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent transition"
+                                    className="w-full md:w-1/3 px-4 py-2 border border-white text-white rounded focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent transition"
                                 />
                             </div>
 
-                            <table className="w-full border-collapse border border-gray-300">
+                            <table className="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden shadow sm-md">
                                 <tbody>
                                     {filteredData.map((user, index) => (
                                         <Fragment key={index}>
