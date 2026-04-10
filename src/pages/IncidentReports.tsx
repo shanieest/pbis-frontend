@@ -132,7 +132,7 @@ export default function IncidentReports() {
                             </button>
                         </div>
 
-                        <div className="mt-16">
+                        <div className="mt-16 bg-white rounded-lg shadow p-6 overflow-x-auto">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="font-semibold text-gray-700">Incident Reports</p>
                                 <input

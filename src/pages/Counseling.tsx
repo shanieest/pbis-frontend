@@ -44,7 +44,6 @@ export default function Counseling() {
     const [searchTerm, setSearchTerm] = useState("");
     const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     const [newReportUser, setNewReportUser] = useState(defaultUser);
     const [newReportDate, setNewReportDate] = useState("");
     const [newReportBehavior, setNewReportBehavior] = useState("");
@@ -105,7 +104,7 @@ export default function Counseling() {
                             </button>
                         </div>
 
-                        <div className="mt-16">
+                        <div className="mt-16 bg-white rounded-lg shadow p-6 overflow-x-auto">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="font-semibold text-gray-700">Counseling</p>
                                 <input
@@ -137,22 +136,45 @@ export default function Counseling() {
                                             {expandedRows.has(index) && (
                                                 <tr>
                                                     <td colSpan={2} className="border border-gray-300 bg-gray-50 p-0">
-                                                        <table className="w-full border-collapse">
-                                                            <thead>
-                                                                <tr className="bg-gray-200 text-gray-700 text-sm">
-                                                                    <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Date</th>
-                                                                    <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Behavior</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {user.incidents.map((incident, i) => (
-                                                                    <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                                                                        <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.date}</td>
-                                                                        <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.behavior}</td>
+                                                        <div className="p-4">
+                                                            <table className="w-full border-collapse mb-4">
+                                                                <thead>
+                                                                    <tr className="bg-gray-200 text-gray-700 text-sm">
+                                                                        <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Date</th>
+                                                                        <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Behavior</th>
                                                                     </tr>
-                                                                ))}
-                                                            </tbody>
-                                                        </table>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {user.incidents.map((incident, i) => (
+                                                                        <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                                                            <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.date}</td>
+                                                                            <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.behavior}</td>
+                                                                        </tr>
+                                                                    ))}
+                                                                </tbody>
+                                                            </table>
+                                                            
+                                                            <div className="flex gap-3 flex-wrap">
+                                                                <button
+                                                                    onClick={() => console.log("Modify action for", user.name)}
+                                                                    className="bg-[#ff7800] text-white px-4 py-2 rounded hover:bg-[#6e4765] transition-colors text-sm font-medium"
+                                                                >
+                                                                    Modify
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => console.log("Refer out action for", user.name)}
+                                                                    className="bg-[#ff3131] text-white px-4 py-2 rounded hover:bg-[#5a9a5a] transition-colors text-sm font-medium"
+                                                                >
+                                                                    Refer Out
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => console.log("Case closed action for", user.name)}
+                                                                    className="bg-[#587a33] text-white px-4 py-2 rounded hover:bg-[#a94539]-200 transition-colors text-sm font-medium"
+                                                                >
+                                                                    Case Closed
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             )}
