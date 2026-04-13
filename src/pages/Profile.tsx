@@ -15,8 +15,6 @@ export default function Profile() {
         lastName: "Dela Cruz",
         email: "delacruz.juan@wis.com",
         role: "Admin",
-        department: "Student Services",
-        phone: "+63 912 345 6789",
         avatar: "/profile-placeholder.png"
     });
     
@@ -210,23 +208,6 @@ export default function Profile() {
                                     
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Phone Number
-                                        </label>
-                                        {isEditing ? (
-                                            <input
-                                                type="tel"
-                                                name="phone"
-                                                value={editForm.phone}
-                                                onChange={handleEditChange}
-                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            />
-                                        ) : (
-                                            <p className="text-gray-900 py-2">{profile.phone}</p>
-                                        )}
-                                    </div>
-                                    
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
                                             Role
                                         </label>
                                         {isEditing ? (
@@ -245,22 +226,6 @@ export default function Profile() {
                                         )}
                                     </div>
                                     
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Department
-                                        </label>
-                                        {isEditing ? (
-                                            <input
-                                                type="text"
-                                                name="department"
-                                                value={editForm.department}
-                                                onChange={handleEditChange}
-                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            />
-                                        ) : (
-                                            <p className="text-gray-900 py-2">{profile.department}</p>
-                                        )}
-                                    </div>
                                 </div>
                             </div>
                         </div>
