@@ -262,14 +262,14 @@ export default function IncidentReports() {
 
                     <div className="bg-white rounded-lg shadow overflow-hidden">
                         <div className="p-4 bg-gradient-to-r from-[#8B5E83] to-gray-200">
-                            <div className="relative">
-                                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                                <p className="font-semibold text-white text-lg">Incident Reports</p>
                                 <input
                                     type="text"
                                     placeholder="Search by name..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full md:w-96 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent"
+                                    className="w-full md:w-96 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent"
                                 />
                             </div>
                         </div>

@@ -1,21 +1,17 @@
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
-import { FaUserEdit, FaSave, FaLock, FaEnvelope, FaUserTag, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
+import { FaUserEdit, FaSave, FaLock, FaEnvelope, FaUserTag} from "react-icons/fa";
 
 export default function Profile() {
     const [isEditing, setIsEditing] = useState(false);
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showErrorModal, setShowErrorModal] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    
+ 
     // User profile state
     const [profile, setProfile] = useState({
         firstName: "Juan",
         lastName: "Dela Cruz",
         email: "delacruz.juan@wis.com",
         role: "Admin",
-        avatar: "/profile-placeholder.png"
     });
     
     const [passwordData, setPasswordData] = useState({
@@ -43,46 +39,9 @@ export default function Profile() {
     const handleSaveProfile = () => {
         setProfile({ ...editForm });
         setIsEditing(false);
-        setShowSuccessModal(true);
-        setTimeout(() => setShowSuccessModal(false), 3000);
+
     };
 
-    const handleSavePassword = () => {
-        // Validation
-        if (!passwordData.currentPassword) {
-            setErrorMessage("Please enter your current password");
-            setShowErrorModal(true);
-            setTimeout(() => setShowErrorModal(false), 3000);
-            return;
-        }
-        
-        if (passwordData.newPassword.length < 6) {
-            setErrorMessage("New password must be at least 6 characters long");
-            setShowErrorModal(true);
-            setTimeout(() => setShowErrorModal(false), 3000);
-            return;
-        }
-        
-        if (passwordData.newPassword !== passwordData.confirmPassword) {
-            setErrorMessage("New passwords do not match");
-            setShowErrorModal(true);
-            setTimeout(() => setShowErrorModal(false), 3000);
-            return;
-        }
-        
-        // Here you would typically make an API call to update the password
-        console.log("Password updated successfully");
-        
-        // Reset password fields
-        setPasswordData({
-            currentPassword: "",
-            newPassword: "",
-            confirmPassword: ""
-        });
-        
-        setShowSuccessModal(true);
-        setTimeout(() => setShowSuccessModal(false), 3000);
-    };
 
     const handleCancelEdit = () => {
         setEditForm({ ...profile });
@@ -130,16 +89,6 @@ export default function Profile() {
                             
                             <div className="p-6">
                                 <div className="flex items-center mb-8 pb-6 border-b border-gray-200">
-                                    <div className="relative">
-                                        <img 
-                                            src={profile.avatar} 
-                                            alt="Profile" 
-                                            className="h-24 w-24 rounded-full object-cover border-4 border-[#8B5E83]"
-                                        />
-                                        <button className="absolute bottom-0 right-0 bg-[#8B5E83] text-white p-1 rounded-full hover:bg-[#6e4765] transition-colors">
-                                            <FaUserEdit size={12} />
-                                        </button>
-                                    </div>
                                     <div className="ml-6">
                                         <h3 className="text-2xl font-bold text-gray-800">{profile.firstName} {profile.lastName}</h3>
                                         <p className="text-gray-600 flex items-center gap-2 mt-1">
@@ -261,7 +210,7 @@ export default function Profile() {
                                             name="newPassword"
                                             value={passwordData.newPassword}
                                             onChange={handlePasswordChange}
-                                            placeholder="Enter new password (min. 6 characters)"
+                                            placeholder="Enter new password"
                                             className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#587a33]"
                                         />
                                     </div>
@@ -281,7 +230,6 @@ export default function Profile() {
                                     </div>
                                     
                                     <button
-                                        onClick={handleSavePassword}
                                         className="bg-[#587a33] text-white px-6 py-2 rounded-lg hover:bg-[#456128] transition-colors flex items-center gap-2"
                                     >
                                         <FaLock /> Update Password
