@@ -261,7 +261,7 @@ export default function IncidentReports() {
                     </div>
 
                     <div className="bg-white rounded-lg shadow overflow-hidden">
-                        <div className="p-4 bg-[#8B5E83]">
+                        <div className="p-4 bg-gradient-to-r from-[#8B5E83] to-gray-200">
                             <div className="relative">
                                 <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                                 <input

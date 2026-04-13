@@ -128,7 +128,7 @@ export default function Counseling() {
                     caseStatus: "referred",
                     referralNotes: referralReason,
                     incidents: [...user.incidents, newIncident]
-                  }
+                }
                 : user
         ));
         
@@ -196,7 +196,7 @@ export default function Counseling() {
                     </div>
 
                     <div className="bg-white rounded-lg shadow overflow-hidden">
-                        <div className="bg-[#8B5E83] p-4">
+                        <div className="p-4 bg-gradient-to-r from-[#8B5E83] to-gray-200">
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                                 <p className="font-semibold text-white text-lg">Counseling Cases</p>
                                 <input
