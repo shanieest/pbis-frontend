@@ -100,7 +100,6 @@ export default function Profile() {
                             My Profile
                         </h1>
 
-                        {/* Profile Information Card */}
                         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-6">
                             <div className="bg-gradient-to-r from-[#8B5E83] to-[#6e4765] px-6 py-4 flex justify-between items-center">
                                 <h2 className="text-xl font-semibold text-white">Profile Information</h2>
@@ -230,7 +229,6 @@ export default function Profile() {
                             </div>
                         </div>
 
-                        {/* Change Password Card */}
                         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                             <div className="bg-gradient-to-r from-[#587a33] to-[#456128] px-6 py-4">
                                 <h2 className="text-xl font-semibold text-white flex items-center gap-2">
@@ -295,31 +293,6 @@ export default function Profile() {
                 </main>
             </div>
 
-            {/* Success Modal */}
-            {showSuccessModal && (
-                <div className="fixed top-4 right-4 z-50 animate-slide-in">
-                    <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-lg flex items-center gap-3">
-                        <FaCheckCircle className="text-green-500 text-xl" />
-                        <div>
-                            <p className="font-semibold">Success!</p>
-                            <p className="text-sm">Your changes have been saved successfully.</p>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Error Modal */}
-            {showErrorModal && (
-                <div className="fixed top-4 right-4 z-50 animate-slide-in">
-                    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-lg flex items-center gap-3">
-                        <FaExclamationTriangle className="text-red-500 text-xl" />
-                        <div>
-                            <p className="font-semibold">Error!</p>
-                            <p className="text-sm">{errorMessage}</p>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
