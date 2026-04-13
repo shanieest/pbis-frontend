@@ -95,7 +95,6 @@ export default function Counseling() {
     const handleModify = () => {
         if (!selectedUser) return;
         
-        // Add modification note as a new incident
         const newIncident: Incident = {
             id: Date.now(),
             date: new Date().toISOString().split('T')[0],
@@ -116,7 +115,6 @@ export default function Counseling() {
     const handleReferOut = () => {
         if (!selectedUser) return;
         
-        // Add referral note as an incident
         const newIncident: Incident = {
             id: Date.now(),
             date: new Date().toISOString().split('T')[0],
@@ -309,7 +307,6 @@ export default function Counseling() {
                         </div>
                     </div>
 
-                    {/* Modify Modal */}
                     {isModifyModalOpen && selectedUser && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
@@ -372,7 +369,6 @@ export default function Counseling() {
                         </div>
                     )}
 
-                    {/* Refer Out Modal */}
                     {isReferModalOpen && selectedUser && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
@@ -456,7 +452,6 @@ export default function Counseling() {
                         </div>
                     )}
 
-                    {/* Case Closed Modal */}
                     {isCloseModalOpen && selectedUser && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">

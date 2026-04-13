@@ -353,7 +353,6 @@ export default function IncidentReports() {
                         </div>
                     </div>
 
-                    {/* Add Report Modal */}
                     {isAddModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                             <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl">
@@ -480,7 +479,6 @@ export default function IncidentReports() {
                         </div>
                     )}
 
-                    {/* Edit Incident Modal */}
                     {isEditModalOpen && selectedIncident && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                             <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl">
@@ -628,7 +626,6 @@ export default function IncidentReports() {
                         </div>
                     )}
 
-                    {/* Export Modal */}
                     {isExportModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                             <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
