@@ -243,7 +243,6 @@ export default function Counseling() {
                                                 <tr>
                                                     <td className="border-b border-gray-200 bg-gray-50 p-0">
                                                         <div className="p-6">
-                                                            {/* Incidents Table */}
                                                             <div className="mb-6">
                                                                 <h3 className="text-lg font-semibold text-gray-800 mb-3">Incident History</h3>
                                                                 <table className="w-full border-collapse">
@@ -264,7 +263,6 @@ export default function Counseling() {
                                                                 </table>
                                                             </div>
                                                             
-                                                            {/* Action Buttons */}
                                                             <div className="flex gap-3 justify-end flex-wrap">
                                                                 <button
                                                                     onClick={() => {
@@ -308,7 +306,7 @@ export default function Counseling() {
                     </div>
 
                     {isModifyModalOpen && selectedUser && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
                                 <div className="bg-[#ff7800] text-white p-6 rounded-t-2xl">
                                     <div className="flex items-center justify-between">
@@ -370,7 +368,7 @@ export default function Counseling() {
                     )}
 
                     {isReferModalOpen && selectedUser && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
                                 <div className="bg-[#ff3131] text-white p-6 rounded-t-2xl">
                                     <div className="flex items-center justify-between">
@@ -453,7 +451,7 @@ export default function Counseling() {
                     )}
 
                     {isCloseModalOpen && selectedUser && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
                                 <div className="bg-[#587a33] text-white p-6 rounded-t-2xl">
                                     <div className="flex items-center justify-between">

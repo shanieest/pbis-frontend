@@ -354,7 +354,7 @@ export default function IncidentReports() {
                     </div>
 
                     {isAddModalOpen && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl">
                                 <div className="bg-[#8B5E83] text-white p-6 rounded-t-2xl">
                                     <div className="flex items-center justify-between">
@@ -480,7 +480,7 @@ export default function IncidentReports() {
                     )}
 
                     {isEditModalOpen && selectedIncident && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl">
                                 <div className="bg-[#ff7800] text-white p-6 rounded-t-2xl">
                                     <div className="flex items-center justify-between">
@@ -567,7 +567,7 @@ export default function IncidentReports() {
 
                     {/* Delete Incident Modal */}
                     {isDeleteModalOpen && selectedIncident && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
                                 <div className="bg-red-600 text-white p-6 rounded-t-2xl">
                                     <div className="flex items-center justify-between">
@@ -627,7 +627,7 @@ export default function IncidentReports() {
                     )}
 
                     {isExportModalOpen && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
                                 <div className="bg-[#58b2ed] text-white p-6 rounded-t-2xl">
                                     <div className="flex items-center justify-between">
