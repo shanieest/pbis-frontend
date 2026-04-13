@@ -132,7 +132,7 @@ export default function IncidentReports() {
                             </button>
                         </div>
 
-                        <div className="mt-16 bg-white rounded-lg shadow p-6 overflow-x-auto">
+                        <div className="mt-16 rounded-lg p-10 overflow-x-auto shadow bg-[ #f1e7eb] text-white ">
                             <div className="flex items-center justify-between mb-3 relative  bg-[#8B5E83] text-white p-4 rounded-tl-lg rounded-tr-lg">
                                 <p className="font-semibold text-white">Incident Reports</p>
                                 

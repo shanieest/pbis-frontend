@@ -66,9 +66,9 @@ export default function Counseling() {
                     </h1>
                     <div className="flex flex-col gap-4 relative">
 
-                        <div className="mt-16 bg-white rounded-lg shadow p-6 overflow-x-auto">
-                            <div className="flex items-center justify-between mb-3">
-                                <p className="font-semibold text-gray-700">Counseling</p>
+                        <div className="mt-16 rounded-lg shadow p-10 overflow-x-auto  ">
+                            <div className="flex items-center justify-between mb-3 relative  bg-[#8B5E83] text-white p-4 rounded-tl-lg rounded-tr-lg">
+                                <p className="font-semibold text-white">Counseling</p>
                                 <input
                                     type="text"
                                     placeholder="Search by name..."

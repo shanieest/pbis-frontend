@@ -22,7 +22,7 @@ export default function Sidebar() {
         <aside className={`bg-[#8B5E83] text-white p-4 transition-all duration-300 min-h-screen sticky top-0 flex flex-col ${isOpen ? "w-64" : "w-20"}`}>
             <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className="mb-8 p-2 hover:bg-white/10 rounded-full transition-colors flex items-center justify-center"
+                className="mb-8 p-2 hover:bg-white/10 rounded-full transition-colors flex items-center"
                 aria-label="Toggle Sidebar"
             >
                 <FaBars className="text-2xl cursor-pointer" />
