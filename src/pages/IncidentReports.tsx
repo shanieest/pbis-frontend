@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Fragment, useState } from "react";
-import { FaChevronDown, FaChevronUp, FaWindowClose, FaSearch, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaWindowClose, FaEdit, FaTrashAlt } from "react-icons/fa";
 
 interface Incident {
     id?: number;
