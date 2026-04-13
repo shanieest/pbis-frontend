@@ -1,43 +1,59 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Fragment, useState } from "react";
-import { FaChevronDown, FaChevronUp, FaWindowClose, FaSearch } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaWindowClose, FaSearch, FaEdit, FaTrashAlt } from "react-icons/fa";
 
 interface Incident {
+    id?: number;
     date: string;
     behavior: string;
+    severity: "minor" | "moderate" | "severe";
 }
 
 interface UserIncident {
+    id: number;
     name: string;
+    lastName: string;
+    firstName: string;
+    middleName: string;
     incidents: Incident[];
 }
 
 const sampleData: UserIncident[] = [
     {
+        id: 1,
         name: "Dela Cruz, Juan",
+        lastName: "Dela Cruz",
+        firstName: "Juan",
+        middleName: "Santos",
         incidents: [
-            { date: "2023-10-01", behavior: "Minor incident" },
-            { date: "2023-10-05", behavior: "Another incident" }
+            { id: 1, date: "2023-10-01", behavior: "Disruptive behavior in class", severity: "minor" },
+            { id: 2, date: "2023-10-05", behavior: "Inappropriate language", severity: "moderate" }
         ]
     },
     {
-        name: "Dela Cruz, Juan",
-        incidents: [
-            { date: "2023-09-15", behavior: "Report filed" }
-        ]
-    },
-    {
+        id: 2,
         name: "Dela Cruz, Maria",
+        lastName: "Dela Cruz",
+        firstName: "Maria",
+        middleName: "Reyes",
         incidents: [
-            { date: "2023-08-20", behavior: "Safety concern" },
-            { date: "2023-09-10", behavior: "Follow-up" },
-            { date: "2023-10-02", behavior: "Resolution" }
+            { id: 3, date: "2023-08-20", behavior: "Physical altercation", severity: "severe" },
+            { id: 4, date: "2023-09-10", behavior: "Verbal warning", severity: "minor" },
+            { id: 5, date: "2023-10-02", behavior: "Detention assigned", severity: "moderate" }
+        ]
+    },
+    {
+        id: 3,
+        name: "Reyes, Jose",
+        lastName: "Reyes",
+        firstName: "Jose",
+        middleName: "Garcia",
+        incidents: [
+            { id: 6, date: "2023-09-15", behavior: "Tardiness", severity: "minor" }
         ]
     }
 ];
-
-const defaultUser = sampleData[0]?.name || "";
 
 export default function IncidentReports() {
     const [data, setData] = useState<UserIncident[]>(sampleData);
@@ -45,66 +61,177 @@ export default function IncidentReports() {
     const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isExportModalOpen, setIsExportModalOpen] = useState(false);
-    const [newReportUser, setNewReportUser] = useState(defaultUser);
-    const [newReportDate, setNewReportDate] = useState("");
-    const [newReportBehavior, setNewReportBehavior] = useState("");
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    
+    // Form states
+    const [selectedUser, setSelectedUser] = useState<UserIncident | null>(null);
+    const [selectedIncident, setSelectedIncident] = useState<Incident | null>(null);
+    const [lastName, setLastName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [middleName, setMiddleName] = useState("");
+    const [incidentDate, setIncidentDate] = useState("");
+    const [incidentBehavior, setIncidentBehavior] = useState("");
+    const [incidentSeverity, setIncidentSeverity] = useState<"minor" | "moderate" | "severe">("minor");
 
     const filteredData = data.filter(user =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const toggleRow = (index: number) => {
+    const toggleRow = (userId: number) => {
         const newExpanded = new Set(expandedRows);
-        if (newExpanded.has(index)) {
-            newExpanded.delete(index);
+        if (newExpanded.has(userId)) {
+            newExpanded.delete(userId);
         } else {
-            newExpanded.add(index);
+            newExpanded.add(userId);
         }
         setExpandedRows(newExpanded);
     };
 
     const handleAddReport = () => {
-        if (!newReportUser.trim() || !newReportDate || !newReportBehavior.trim()) {
+        if (!lastName.trim() || !firstName.trim() || !incidentDate || !incidentBehavior.trim()) {
+            alert("Please fill in all required fields");
             return;
         }
 
+        const fullName = `${lastName}, ${firstName}`;
+        const newIncident: Incident = {
+            id: Date.now(),
+            date: incidentDate,
+            behavior: incidentBehavior,
+            severity: incidentSeverity
+        };
+
         setData(prev => {
-            const userExists = prev.some(user => user.name === newReportUser);
+            const userExists = prev.find(user => 
+                user.lastName === lastName && user.firstName === firstName
+            );
+            
             if (userExists) {
                 return prev.map(user =>
-                    user.name === newReportUser
-                        ? { ...user, incidents: [...user.incidents, { date: newReportDate, behavior: newReportBehavior }] }
+                    user.id === userExists.id
+                        ? { ...user, incidents: [...user.incidents, newIncident] }
                         : user
                 );
             }
 
-            return [...prev, { name: newReportUser, incidents: [{ date: newReportDate, behavior: newReportBehavior }] }];
+            const newUser: UserIncident = {
+                id: Date.now(),
+                name: fullName,
+                lastName,
+                firstName,
+                middleName: middleName || "",
+                incidents: [newIncident]
+            };
+            return [...prev, newUser];
         });
 
-        setNewReportDate("");
-        setNewReportBehavior("");
+        resetForm();
         setIsAddModalOpen(false);
     };
 
+    const handleEditIncident = () => {
+        if (!selectedUser || !selectedIncident) return;
+
+        setData(prev => prev.map(user => {
+            if (user.id === selectedUser.id) {
+                return {
+                    ...user,
+                    incidents: user.incidents.map(incident =>
+                        incident.id === selectedIncident.id
+                            ? { ...incident, date: incidentDate, behavior: incidentBehavior, severity: incidentSeverity }
+                            : incident
+                    )
+                };
+            }
+            return user;
+        }));
+
+        resetForm();
+        setIsEditModalOpen(false);
+        setSelectedUser(null);
+        setSelectedIncident(null);
+    };
+
+    const handleDeleteIncident = () => {
+        if (!selectedUser || !selectedIncident) return;
+
+        setData(prev => prev.map(user => {
+            if (user.id === selectedUser.id) {
+                return {
+                    ...user,
+                    incidents: user.incidents.filter(incident => incident.id !== selectedIncident.id)
+                };
+            }
+            return user;
+        }));
+
+        setIsDeleteModalOpen(false);
+        setSelectedUser(null);
+        setSelectedIncident(null);
+    };
+
+    const openEditModal = (user: UserIncident, incident: Incident) => {
+        setSelectedUser(user);
+        setSelectedIncident(incident);
+        setLastName(user.lastName);
+        setFirstName(user.firstName);
+        setMiddleName(user.middleName);
+        setIncidentDate(incident.date);
+        setIncidentBehavior(incident.behavior);
+        setIncidentSeverity(incident.severity);
+        setIsEditModalOpen(true);
+    };
+
+    const openDeleteModal = (user: UserIncident, incident: Incident) => {
+        setSelectedUser(user);
+        setSelectedIncident(incident);
+        setIsDeleteModalOpen(true);
+    };
+
+    const resetForm = () => {
+        setLastName("");
+        setFirstName("");
+        setMiddleName("");
+        setIncidentDate("");
+        setIncidentBehavior("");
+        setIncidentSeverity("minor");
+    };
+
     const downloadCsv = () => {
-        const header = ["Name", "Date", "Behavior"];
+        const header = ["Name", "Date", "Behavior", "Severity"];
         const rows = filteredData.flatMap(user =>
-            user.incidents.map(incident => [user.name, incident.date, incident.behavior])
+            user.incidents.map(incident => [
+                user.name, 
+                incident.date, 
+                incident.behavior,
+                incident.severity.toUpperCase()
+            ])
         );
+        
         const csvContent = [header, ...rows]
-            .map(row => row.map(value => `"${value.replace(/"/g, '""')}"`).join(","))
+            .map(row => row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(","))
             .join("\n");
 
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "incident-reports.csv";
+        link.download = `incident-reports-${new Date().toISOString().split('T')[0]}.csv`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
         setIsExportModalOpen(false);
+    };
+
+    const getSeverityColor = (severity: string) => {
+        switch(severity) {
+            case 'minor': return 'bg-green-100 text-green-800';
+            case 'moderate': return 'bg-yellow-100 text-yellow-800';
+            case 'severe': return 'bg-red-100 text-red-800';
+            default: return 'bg-gray-100 text-gray-800';
+        }
     };
 
     return (
@@ -113,74 +240,103 @@ export default function IncidentReports() {
             <div className="flex flex-col flex-1">
                 <Header />
                 <main className="flex-1 p-10 bg-gray-50">
-                    <h1 className="text-3xl font-bold font-serif text-black tracking-wide mb-8">
-                        Incident Reports
-                    </h1>
-                    <div className="flex flex-col gap-4 relative">
-                        <div className="absolute right-0 top-0 flex gap-4">
+                    <div className="flex justify-between items-center mb-8">
+                        <h1 className="text-3xl font-bold font-serif text-black tracking-wide">
+                            Incident Reports
+                        </h1>
+                        <div className="flex gap-4">
                             <button
                                 onClick={() => setIsAddModalOpen(true)}
-                                className="bg-[#8B5E83] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors"
+                                className="bg-[#8B5E83] text-white px-4 py-2 rounded hover:bg-[#6e4765] transition-colors"
                             >
                                 Add Report
                             </button>
                             <button
                                 onClick={() => setIsExportModalOpen(true)}
-                                className="bg-[#58b2ed] text-white px-4 py-2 rounded hover:bg-[#D6B0B1] transition-colors"
+                                className="bg-[#58b2ed] text-white px-4 py-2 rounded hover:bg-[#3a8ec9] transition-colors"
                             >
                                 Export
                             </button>
                         </div>
+                    </div>
 
-                        <div className="mt-16 rounded-lg p-10 overflow-x-auto shadow bg-[ #f1e7eb] text-white ">
-                            <div className="flex items-center justify-between mb-3 relative  bg-[#8B5E83] text-white p-4 rounded-tl-lg rounded-tr-lg">
-                                <p className="font-semibold text-white">Incident Reports</p>
-                                
+                    <div className="bg-white rounded-lg shadow overflow-hidden">
+                        <div className="p-4 bg-[#8B5E83]">
+                            <div className="relative">
+                                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                                 <input
                                     type="text"
                                     placeholder="Search by name..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full md:w-1/3 px-4 py-2 border border-white text-white rounded focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent transition"
+                                    className="w-full md:w-96 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent"
                                 />
                             </div>
+                        </div>
 
-                            <table className="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden shadow sm-md">
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse">
                                 <tbody>
-                                    {filteredData.map((user, index) => (
-                                        <Fragment key={index}>
+                                    {filteredData.map((user) => (
+                                        <Fragment key={user.id}>
                                             <tr
-                                                className="cursor-pointer"
-                                                style={{ backgroundColor: "#8B5E83", color: "white" }}
-                                                onClick={() => toggleRow(index)}
+                                                className="cursor-pointer hover:bg-gray-100 transition-colors"
+                                                onClick={() => toggleRow(user.id)}
                                             >
-                                                <td className="border border-gray-300 p-3 font-semibold">
+                                                <td className="border-b border-gray-200 p-4 font-semibold text-gray-800">
                                                     {user.name}
+                                                    <span className="ml-2 text-sm text-gray-500">
+                                                        ({user.incidents.length} incident{user.incidents.length !== 1 ? 's' : ''})
+                                                    </span>
                                                 </td>
-                                                <td className="border border-gray-300 p-3 text-right w-10">
-                                                    {expandedRows.has(index) ? <FaChevronUp className="ml-auto" /> : <FaChevronDown className="ml-auto" />}
+                                                <td className="border-b border-gray-200 p-4 text-right w-10">
+                                                    {expandedRows.has(user.id) ? 
+                                                        <FaChevronUp className="ml-auto text-gray-600" /> : 
+                                                        <FaChevronDown className="ml-auto text-gray-600" />
+                                                    }
                                                 </td>
                                             </tr>
 
-                                            {expandedRows.has(index) && (
+                                            {expandedRows.has(user.id) && (
                                                 <tr>
-                                                    <td colSpan={3} className="border border-gray-300 bg-gray-50 p-0">
-                                                        <table className="w-full border-collapse">
+                                                    <td colSpan={2} className="border-b border-gray-200 bg-gray-50 p-0">
+                                                        <table className="w-full">
                                                             <thead>
-                                                                <tr className="bg-gray-200 text-gray-700 text-sm">
-                                                                    <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Date</th>
-                                                                    <th className="border border-gray-300 px-4 py-2 text-left font-semibold">Behavior</th>
-                                                                    <th className="border border-gray-300 px-4 py-2 text-right font-semibold">Actions</th>
+                                                                <tr className="bg-gray-100">
+                                                                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                                                                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Behavior</th>
+                                                                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Severity</th>
+                                                                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {user.incidents.map((incident, i) => (
-                                                                    <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                                                                        <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.date}</td>
-                                                                        <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.behavior}</td>
-                                                                        <td className="border border-gray-300 px-4 py-2 text-right">
-                                                                            <button className="bg-[#587a33] text-white px-3 py-1 rounded text-sm hover:bg-[#D6B0B1] transition-colors">
-                                                                                Assess
+                                                                {user.incidents.map((incident) => (
+                                                                    <tr key={incident.id} className="border-b border-gray-200">
+                                                                        <td className="px-4 py-3 text-sm text-gray-700">{incident.date}</td>
+                                                                        <td className="px-4 py-3 text-sm text-gray-700">{incident.behavior}</td>
+                                                                        <td className="px-4 py-3">
+                                                                            <span className={`px-2 py-1 rounded text-xs font-semibold ${getSeverityColor(incident.severity)}`}>
+                                                                                {incident.severity.toUpperCase()}
+                                                                            </span>
+                                                                        </td>
+                                                                        <td className="px-4 py-3 text-right">
+                                                                            <button
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    openEditModal(user, incident);
+                                                                                }}
+                                                                                className="bg-[#ff7800] text-white px-3 py-1 rounded text-sm hover:bg-[#e06600] transition-colors mr-2"
+                                                                            >
+                                                                                <FaEdit />
+                                                                            </button>
+                                                                            <button
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    openDeleteModal(user, incident);
+                                                                                }}
+                                                                                className="bg-[#ff4d4d] text-white px-3 py-1 rounded text-sm hover:bg-[#e60000] transition-colors"
+                                                                            >
+                                                                                <FaTrashAlt />
                                                                             </button>
                                                                         </td>
                                                                     </tr>
@@ -197,115 +353,327 @@ export default function IncidentReports() {
                         </div>
                     </div>
 
+                    {/* Add Report Modal */}
                     {isAddModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-                            <div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-xl">
-                                <div className="flex items-center justify-between mb-6 bg-[#8B5E83] text-white p-4 rounded-tl-2xl rounded-tr-2xl">
-                                    <div>
-                                        <h2 className="text-2xl font-semibold">Add Incident Report</h2>
-                                        <p className="text-sm text-white">Add a new report to any student record.</p>
+                            <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl">
+                                <div className="bg-[#8B5E83] text-white p-6 rounded-t-2xl">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h2 className="text-2xl font-semibold">Add Incident Report</h2>
+                                            <p className="text-sm text-white/90 mt-1">Add a new incident report to a student record.</p>
+                                        </div>
+                                        <button
+                                            onClick={() => {
+                                                setIsAddModalOpen(false);
+                                                resetForm();
+                                            }}
+                                            className="text-white/80 hover:text-white transition-colors"
+                                        >
+                                            <FaWindowClose className="text-2xl" />
+                                        </button>
                                     </div>
-                                    <button
-                                        onClick={() => setIsAddModalOpen(false)}
-                                        className=" hover:text-gray-700"
-                                    >
-                                        <FaWindowClose className="text-2xl" />
-                                    </button>
                                 </div>
-                                <div className="grid gap-4">
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">Last Name</span>
-                                        <input
-                                            type="text"
-                                            value={newReportUser}
-                                            onChange={(e) => setNewReportUser(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            placeholder="Enter last name"
-                                        />
-                                    </label>
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">First Name</span>
-                                        <input
-                                            type="text"
-                                            value={newReportUser}
-                                            onChange={(e) => setNewReportUser(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            placeholder="Enter first name"
-                                        />
-                                    </label>
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">Middle Name</span>
-                                        <input
-                                            type="text"
-                                            value={newReportUser}
-                                            onChange={(e) => setNewReportUser(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            placeholder="Enter middle name"
-                                        />
-                                    </label>
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">Date</span>
-                                        <input
-                                            type="date"
-                                            value={newReportDate}
-                                            onChange={(e) => setNewReportDate(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                        />
-                                    </label>
-                                    <label className="block">
-                                        <span className="text-sm font-medium text-gray-700">Behavior</span>
-                                        <textarea
-                                            value={newReportBehavior}
-                                            onChange={(e) => setNewReportBehavior(e.target.value)}
-                                            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
-                                            rows={4}
-                                            placeholder="Describe the incident"
-                                        />
-                                    </label>
+                                
+                                <div className="p-6">
+                                    <div className="grid gap-4">
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                    Last Name *
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={lastName}
+                                                    onChange={(e) => setLastName(e.target.value)}
+                                                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                                    placeholder="Enter last name"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                    First Name *
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={firstName}
+                                                    onChange={(e) => setFirstName(e.target.value)}
+                                                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                                    placeholder="Enter first name"
+                                                />
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Middle Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={middleName}
+                                                onChange={(e) => setMiddleName(e.target.value)}
+                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                                placeholder="Enter middle name"
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Date *
+                                            </label>
+                                            <input
+                                                type="date"
+                                                value={incidentDate}
+                                                onChange={(e) => setIncidentDate(e.target.value)}
+                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Severity *
+                                            </label>
+                                            <select
+                                                value={incidentSeverity}
+                                                onChange={(e) => setIncidentSeverity(e.target.value as any)}
+                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                            >
+                                                <option value="minor">Minor</option>
+                                                <option value="moderate">Moderate</option>
+                                                <option value="severe">Severe</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Behavior Description *
+                                            </label>
+                                            <textarea
+                                                value={incidentBehavior}
+                                                onChange={(e) => setIncidentBehavior(e.target.value)}
+                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B5E83]"
+                                                rows={4}
+                                                placeholder="Describe the incident in detail..."
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="mt-6 flex justify-end gap-3">
+                                
+                                <div className="flex justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-2xl">
                                     <button
-                                        onClick={() => setIsAddModalOpen(true)}
-                                        className="rounded bg-[#587a33] px-4 py-2 text-white hover:bg-[#6e4765]"
+                                        onClick={() => {
+                                            setIsAddModalOpen(false);
+                                            resetForm();
+                                        }}
+                                        className="rounded-lg bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 transition-colors"
                                     >
-                                        Minor
+                                        Cancel
                                     </button>
                                     <button
                                         onClick={handleAddReport}
-                                        className="rounded bg-[#ff7800] px-4 py-2 text-white hover:bg-[#6e4765]"
+                                        className="rounded-lg bg-[#8B5E83] px-4 py-2 text-white hover:bg-[#6e4765] transition-colors"
                                     >
-                                        Moderate/Severe
+                                        Add Report
                                     </button>
                                 </div>
                             </div>
                         </div>
                     )}
 
+                    {/* Edit Incident Modal */}
+                    {isEditModalOpen && selectedIncident && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                            <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl">
+                                <div className="bg-[#ff7800] text-white p-6 rounded-t-2xl">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h2 className="text-2xl font-semibold">Edit Incident Report</h2>
+                                            <p className="text-sm text-white/90 mt-1">Update incident details for {selectedUser?.name}</p>
+                                        </div>
+                                        <button
+                                            onClick={() => {
+                                                setIsEditModalOpen(false);
+                                                resetForm();
+                                            }}
+                                            className="text-white/80 hover:text-white transition-colors"
+                                        >
+                                            <FaWindowClose className="text-2xl" />
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div className="p-6">
+                                    <div className="grid gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Date *
+                                            </label>
+                                            <input
+                                                type="date"
+                                                value={incidentDate}
+                                                onChange={(e) => setIncidentDate(e.target.value)}
+                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff7800]"
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Severity *
+                                            </label>
+                                            <select
+                                                value={incidentSeverity}
+                                                onChange={(e) => setIncidentSeverity(e.target.value as any)}
+                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff7800]"
+                                            >
+                                                <option value="minor">Minor</option>
+                                                <option value="moderate">Moderate</option>
+                                                <option value="severe">Severe</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Behavior Description *
+                                            </label>
+                                            <textarea
+                                                value={incidentBehavior}
+                                                onChange={(e) => setIncidentBehavior(e.target.value)}
+                                                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff7800]"
+                                                rows={4}
+                                                placeholder="Describe the incident in detail..."
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="flex justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-2xl">
+                                    <button
+                                        onClick={() => {
+                                            setIsEditModalOpen(false);
+                                            resetForm();
+                                        }}
+                                        className="rounded-lg bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={handleEditIncident}
+                                        className="rounded-lg bg-[#ff7800] px-4 py-2 text-white hover:bg-[#e06600] transition-colors"
+                                    >
+                                        Update Incident
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Delete Incident Modal */}
+                    {isDeleteModalOpen && selectedIncident && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                            <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
+                                <div className="bg-red-600 text-white p-6 rounded-t-2xl">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h2 className="text-2xl font-semibold">Delete Incident Report</h2>
+                                            <p className="text-sm text-white/90 mt-1">This action cannot be undone</p>
+                                        </div>
+                                        <button
+                                            onClick={() => setIsDeleteModalOpen(false)}
+                                            className="text-white/80 hover:text-white transition-colors"
+                                        >
+                                            <FaWindowClose className="text-2xl" />
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div className="p-6">
+                                    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                                        <p className="text-gray-800 font-medium">You are about to delete this incident:</p>
+                                        <div className="mt-3 space-y-2">
+                                            <p className="text-sm text-gray-600">
+                                                <span className="font-semibold">Student:</span> {selectedUser?.name}
+                                            </p>
+                                            <p className="text-sm text-gray-600">
+                                                <span className="font-semibold">Date:</span> {selectedIncident.date}
+                                            </p>
+                                            <p className="text-sm text-gray-600">
+                                                <span className="font-semibold">Behavior:</span> {selectedIncident.behavior}
+                                            </p>
+                                            <p className="text-sm text-gray-600">
+                                                <span className="font-semibold">Severity:</span> 
+                                                <span className={`ml-2 px-2 py-0.5 rounded text-xs ${getSeverityColor(selectedIncident.severity)}`}>
+                                                    {selectedIncident.severity.toUpperCase()}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <p className="text-red-600 text-sm mt-3">⚠️ This action cannot be undone.</p>
+                                    </div>
+                                </div>
+                                
+                                <div className="flex justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-2xl">
+                                    <button
+                                        onClick={() => setIsDeleteModalOpen(false)}
+                                        className="rounded-lg bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={handleDeleteIncident}
+                                        className="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition-colors"
+                                    >
+                                        Delete Incident
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Export Modal */}
                     {isExportModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-                            <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
-                                <div className="flex items-center justify-between mb-6">
-                                    <div>
-                                        <h2 className="text-2xl font-semibold">Export Reports</h2>
-                                        <p className="text-sm text-gray-600">Export the current visible report data to CSV.</p>
+                            <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
+                                <div className="bg-[#58b2ed] text-white p-6 rounded-t-2xl">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h2 className="text-2xl font-semibold">Export Reports</h2>
+                                            <p className="text-sm text-white/90 mt-1">Export incident data to CSV</p>
+                                        </div>
+                                        <button
+                                            onClick={() => setIsExportModalOpen(false)}
+                                            className="text-white/80 hover:text-white transition-colors"
+                                        >
+                                            <FaWindowClose className="text-2xl" />
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="space-y-4">
-                                    <p className="text-gray-700">This will export {filteredData.length} student record{filteredData.length === 1 ? "" : "s"} and their incidents.</p>
-                                    <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-4 text-sm text-gray-600">
-                                        The exported file includes Name, Date, and Behavior.
+                                
+                                <div className="p-6">
+                                    <div className="space-y-4">
+                                        <p className="text-gray-700">
+                                            This will export <span className="font-semibold">{filteredData.length}</span> student record{filteredData.length !== 1 ? 's' : ''} and their incidents.
+                                        </p>
+                                        <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-4">
+                                            <p className="text-sm font-medium text-gray-700 mb-2">The exported file includes:</p>
+                                            <ul className="text-sm text-gray-600 space-y-1">
+                                                <li>• Student Name</li>
+                                                <li>• Incident Date</li>
+                                                <li>• Behavior Description</li>
+                                                <li>• Severity Level</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="mt-6 flex justify-end gap-3">
+                                
+                                <div className="flex justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-2xl">
                                     <button
                                         onClick={() => setIsExportModalOpen(false)}
-                                        className="rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
+                                        className="rounded-lg bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 transition-colors"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         onClick={downloadCsv}
-                                        className="rounded bg-[#486989] px-4 py-2 text-white hover:bg-[#2d4f69]"
+                                        className="rounded-lg bg-[#58b2ed] px-4 py-2 text-white hover:bg-[#3a8ec9] transition-colors"
                                     >
                                         Download CSV
                                     </button>
