@@ -275,7 +275,7 @@ export default function IncidentReports() {
                         </div>
 
                         <div className="overflow-x-auto">
-                            <table className="w-full border-collapse">
+                            <table className="w-full border-collapse container mx-auto">
                                 <tbody>
                                     {filteredData.map((user) => (
                                         <Fragment key={user.id}>
