@@ -54,7 +54,9 @@ export default function LoginPage() {
             <div className="flex-1 flex items-center justify-center">
                 <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
                     <div className="flex flex-col items-center mb-6">
-                        <img src={Westfields} alt="Logo" className="h-16 mb-4" />
+                            <Link to="https://westfields.edu.ph/">
+                                <img src={Westfields} alt="Logo" className="h-16 mb-4" />
+                            </Link>
                         <h2 className="text-1xl font-bold text-[#4D2B8C] text-justify">Positive Behavioral Interventions and Supports</h2>
                     </div>
                     <form onSubmit={handleLogin} className="space-y-6">
