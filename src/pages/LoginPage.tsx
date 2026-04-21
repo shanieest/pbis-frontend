@@ -31,10 +31,28 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex duration-300 transition-all bg-linear-to-r from-[#4D2B8C] to-[#85409D] items-center justify-center">
+        <div className="min-h-screen flex flex-col duration-300 transition-all bg-linear-to-r from-[#4D2B8C] to-[#85409D] items-center justify-center">
+
+   <div className="w-full py-4 overflow-hidden bg-white/10 backdrop-blur-sm border-b border-white/20">
+                <div className="flex w-[200%]">
+                    <div className="flex animate-loop-scroll space-x-12 items-center px-6">
+                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
+                        <span className="text-white/70 whitespace-nowrap">★</span>
+                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
+                        <span className="text-white/70 whitespace-nowrap">★</span>                        
+                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
+                        <span className="text-white/70 whitespace-nowrap">★</span>                        
+                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
+                        <span className="text-white/70 whitespace-nowrap">★</span>                        
+                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
+                        <span className="text-white/70 whitespace-nowrap">★</span>
+                    </div>
+
+                </div>
+            </div>
 
             <div className="flex-1 flex items-center justify-center">
-                <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg animate-bounce">
+                <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
                     <div className="flex flex-col items-center mb-6">
                         <img src={Westfields} alt="Logo" className="h-16 mb-4" />
                         <h2 className="text-1xl font-bold text-[#4D2B8C] text-justify">Positive Behavioral Interventions and Supports</h2>
@@ -86,5 +104,7 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
+
+        
     );
 }

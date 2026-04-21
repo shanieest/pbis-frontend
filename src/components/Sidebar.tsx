@@ -22,7 +22,7 @@ export default function Sidebar() {
         <aside className={`bg-[#4D2B8C] text-white p-4 transition-all duration-300 min-h-screen sticky top-0 flex flex-col ${isOpen ? "w-64" : "w-20"}`}>
             <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className="mb-8 p-2 hover:bg-white/10 rounded-full transition-colors flex items-center"
+                className="mb-8 p-2 hover:bg-white/10 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 rounded-b-md flex items-center"
                 aria-label="Toggle Sidebar"
             >
                 <FaBars className="text-2xl cursor-pointer" />
@@ -34,10 +34,10 @@ export default function Sidebar() {
                         <li key={to}>
                             <Link
                                 to={to}
-                                className={`flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors ${index !== 0 ? "border-t border-white/20 pt-4 mt-2" : ""}`}
+                                className={`flex items-center gap-3 p-2 rounded-lg transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-white/10 ${index !== 0 ? "border-t border-white/20 pt-4 mt-2" : ""}`}
                             >
                                 {icon}
-                                <span className={`overflow-hidden whitespace-nowrap transition-all duration-300 ${isOpen ? "opacity-100 max-w-xs" : "opacity-0 max-w-0"}`}>
+                                <span className={`overflow-hidden whitespace-nowrap ${isOpen ? "opacity-100 max-w-xs" : "opacity-0 max-w-0"}`}>
                                     {label}
                                 </span>
                             </Link>

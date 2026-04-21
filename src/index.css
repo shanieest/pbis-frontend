@@ -51,3 +51,12 @@ animation: var(--animate-spin);
         transform: rotate(360deg);
     }
 }
+
+@theme {
+  @keyframes loop-scroll {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+  --animate-loop-scroll: loop-scroll 50s linear infinite;
+}
