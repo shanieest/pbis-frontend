@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/design.png";
 import Westfields from "../assets/Westfields.png";
 
 export default function LoginPage() {
@@ -32,62 +31,43 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex">
+        <div className="min-h-screen flex duration-300 transition-all">
 
-            <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-10 py-16">
-                <div className="w-full max-w-md">
-                    <div className="mb-10 text-center">
-                        <span className="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#85409D] to-[#6A2C8A]">PBIS</span>
+            <div className="flex-1 flex items-center justify-center bg-linear-to-r from-[#4D2B8C] to-[#85409D]">
+                <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+                    <div className="flex flex-col items-center mb-6">
+                        <img src={Westfields} alt="Logo" className="h-16 mb-4" />
+                        <h2 className="text-1xl font-bold text-[#4D2B8C]">Positive Behavioral Interventions and Supports</h2>
                     </div>
-
-                    {error && (
-                        <div className="text-red-500 text-sm mb-4 bg-red-50 border border-red-200 rounded px-4 py-2">
-                            {error}
-                        </div>
-                    )}
-
-                    <form className="space-y-5" onSubmit={handleLogin}>
+                    <form onSubmit={handleLogin} className="space-y-6">
                         <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                             <input
                                 type="email"
                                 id="email"
-                                className="w-full px-4 py-3 border border-black-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#463b66] focus:border-transparent transition"
-                                placeholder="Email"
+                                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent"
                                 required
                             />
                         </div>
-
                         <div>
-                            <div className="flex justify-between items-center mb-1">
-                            </div>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                             <input
                                 type="password"
                                 id="password"
-                                className="w-full px-4 py-3 border border-black-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#463b66] focus:border-transparent transition"
-                                placeholder="Password"
+                                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent"
                                 required
                             />
                         </div>
-
+                        {error && <p className="text-red-500 text-sm">{error}</p>}
                         <button
                             type="submit"
-                            className="w-full bg-gradient-to-r from-[#4D2B8C] to-[#85409D] text-white py-3 rounded-lg text-sm font-semibold hover:from-[#5a4d7f] hover:to-[#3a2d5f] active:scale-[0.98] transition-all duration-200 mt-2"
+                            className="w-full py-2 px-4 bg-gradient-to-r from-[#4D2B8C] to-[#85409D] text-white font-semibold rounded-lg hover:from-[#8B5E83] hover:to-gray-200 transition-colors"
                         >
                             Login
                         </button>
                     </form>
                 </div>
             </div>
-
-            <div className="hidden md:block w-1/2">
-                <div className="h-full flex items-center justify-center">
-                    <img src={Logo} alt="Login Illustration" className="w-3/4" />
-                </div>
-            </div>
-
-            <footer className="absolute bottom-4 w-full text-sm text-gray-500 left-">
-                    <img src={Westfields} alt="Westfields Logo" className="h-10" />
-            </footer>
         </div>
     );
 }
