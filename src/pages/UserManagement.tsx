@@ -130,7 +130,7 @@ export default function UserManagement() {
                         <div className="overflow-x-auto">
                             <table className="w-full table-auto border-collapse ">
                                 <thead>
-                                    <tr className="bg-gradient-to-r from-[#8B5E83] to-gray-200 text-white text-sm">
+                                    <tr className="bg-gradient-to-r from-[#4D2B8C] to-[#85409D] text-white text-sm">
                                         <th className="px-4 py-3 text-left font-semibold">Name</th>
                                         <th className="px-4 py-3 text-left font-semibold">Email</th>
                                         <th className="px-4 py-3 text-left font-semibold">Role</th>

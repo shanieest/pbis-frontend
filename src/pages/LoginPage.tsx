@@ -37,7 +37,7 @@ export default function LoginPage() {
             <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-10 py-16">
                 <div className="w-full max-w-md">
                     <div className="mb-10 text-center">
-                        <span className="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#8B5E83] to-[#C599B6]">PBIS</span>
+                        <span className="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#85409D] to-[#6A2C8A]">PBIS</span>
                     </div>
 
                     {error && (
@@ -71,7 +71,7 @@ export default function LoginPage() {
 
                         <button
                             type="submit"
-                            className="w-full bg-gradient-to-r from-[#8B5E83] to-[#C599B6] text-white py-3 rounded-lg text-sm font-semibold hover:from-[#5a4d7f] hover:to-[#3a2d5f] active:scale-[0.98] transition-all duration-200 mt-2"
+                            className="w-full bg-gradient-to-r from-[#4D2B8C] to-[#85409D] text-white py-3 rounded-lg text-sm font-semibold hover:from-[#5a4d7f] hover:to-[#3a2d5f] active:scale-[0.98] transition-all duration-200 mt-2"
                         >
                             Login
                         </button>

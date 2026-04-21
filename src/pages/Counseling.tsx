@@ -196,7 +196,7 @@ export default function Counseling() {
                     </div>
 
                     <div className="bg-white rounded-lg shadow overflow-hidden">
-                        <div className="p-4 bg-gradient-to-r from-[#8B5E83] to-gray-200">
+                        <div className="p-4 bg-gradient-to-r from-[#4D2B8C] to-[#85409D]">
                             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                                 <p className="font-semibold text-white text-lg">Counseling Cases</p>
                                 <input
@@ -204,7 +204,7 @@ export default function Counseling() {
                                     placeholder="Search by name..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full md:w-96 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent"
+                                    className="text-white w-full md:w-96 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B5E83] focus:border-transparent"
                                 />
                             </div>
                         </div>

@@ -6,7 +6,7 @@ export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <header className="shadow-md bg-[#8B5E83] p-4 text-white font-bold text-lg relative">
+        <header className="shadow-md bg-gradient-to-r from-[#4D2B8C] to-[#85409D] p-4 text-white font-bold text-lg relative">
             <div className="container mx-auto flex items-center justify-end">
 
                 <div className="relative flex items-center cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
