@@ -60,7 +60,7 @@ export default function Profile() {
                         </h1>
 
                         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-6">
-                            <div className="bg-gradient-to-r from-[#8B5E83] to-[#6e4765] px-6 py-4 flex justify-between items-center">
+                            <div className="bg-[#4D2B8C]  px-6 py-4 flex justify-between items-center">
                                 <h2 className="text-xl font-semibold text-white">Profile Information</h2>
                                 {!isEditing ? (
                                     <button
@@ -179,7 +179,7 @@ export default function Profile() {
                         </div>
 
                         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                            <div className="bg-gradient-to-r from-[#587a33] to-[#456128] px-6 py-4">
+                            <div className="bg-[#25671E] px-6 py-4">
                                 <h2 className="text-xl font-semibold text-white flex items-center gap-2">
                                     <FaLock /> Change Password
                                 </h2>

@@ -31,9 +31,9 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex duration-300 transition-all">
+        <div className="min-h-screen flex duration-300 transition-all bg-linear-to-r from-[#4D2B8C] to-[#85409D] items-center justify-center">
 
-            <div className="flex-1 flex items-center justify-center bg-linear-to-r from-[#4D2B8C] to-[#85409D]">
+            <div className="flex-1 flex items-center justify-center">
                 <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
                     <div className="flex flex-col items-center mb-6">
                         <img src={Westfields} alt="Logo" className="h-16 mb-4" />
@@ -61,7 +61,7 @@ export default function LoginPage() {
                         {error && <p className="text-red-500 text-sm">{error}</p>}
                         <button
                             type="submit"
-                            className="w-full py-2 px-4 bg-gradient-to-r from-[#4D2B8C] to-[#85409D] text-white font-semibold rounded-lg hover:from-[#8B5E83] hover:to-gray-200 transition-colors"
+                            className="w-full py-2 px-4 bg-[#4D2B8C] text-white font-semibold rounded-lg hover:bg-[#8B5E83]"
                         >
                             Login
                         </button>
