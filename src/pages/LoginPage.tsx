@@ -38,30 +38,29 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex flex-col duration-300 transition-all bg-linear-to-r from-[#4D2B8C] to-[#85409D] items-center justify-center">
 
-        <div 
+            <div 
             onClick={handleClick} 
-            className="w-full py-4 overflow-hidden bg-white/10 backdrop-blur-sm border-b border-white/20 cursor-pointer select-none"
+            className="relative w-full py-4 overflow-hidden bg-[#4D2B8C] border-b border-white/20 cursor-pointer select-none"
             >
-            {clickCount >= 5 ? (
-                <div className="px-6 text-white font-black opacity-10 animate-pulse">
-                Jarshane Tolentino
-                </div>
-            ) : (
-                <div className="flex w-max animate-loop-scroll items-center gap-12 px-6">
-                {[...Array(10)].map((_, i) => (
-                    <div key={i} className="flex items-center gap-12">
-                    <span className="text-white font-bold whitespace-nowrap">
-                        WESTFIELDS INTERNATIONAL SCHOOL
+            <div className="flex w-max animate-loop-scroll items-center gap-12 px-6">
+                {[...Array(10)].map((_,i) => (
+                <div key={i} className="flex items-center gap-12">
+                    <span className="text-white font-bold whitespace-nowrap uppercase tracking-widest">
+                    WESTFIELDS INTERNATIONAL SCHOOL
                     </span>
-                    <span className="text-white/70 whitespace-nowrap"></span>
-                    </div>
+                    <span className="text-white/20">★</span>
+                </div>
                 ))}
+            </div>
+
+            {clickCount >= 5 && (
+                <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 backdrop-blur-[2px] animate-in fade-in duration-700">
+                <h2 className="text-white font-black text-1xl tracking-tighter mix-blend-overlay opacity-80">
+                    Jarshane
+                </h2>
                 </div>
             )}
             </div>
-
-
-
 
             <div className="flex-1 flex items-center justify-center">
                 <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
