@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 import { Fragment, useState } from "react";
 import { FaChevronDown, FaChevronUp, FaWindowClose, FaEdit, FaExternalLinkAlt, FaCheckCircle } from "react-icons/fa";
 
@@ -189,11 +190,21 @@ export default function Counseling() {
             <div className="flex flex-col flex-1">
                 <Header />
                 <main className="flex-1 p-10 bg-gray-50">
-                    <div className="flex justify-between items-center mb-8">
-                        <h1 className="text-3xl font-bold font-serif text-black tracking-wide">
-                            Counseling
-                        </h1>
-                    </div>
+                            
+                        <div className="grid grid-cols-1 md:grid-cols-2 items-end border-b-4 border-slate-900 pb-4 mb-8">
+                            <div>
+                            <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">
+                                Counseling
+                            </h1>
+                            <p className="text-blue-600 font-bold text-xs uppercase tracking-widest mt-1">
+                                <Link to="/dashboard">
+                                    Dashboard/ 
+                                </Link>
+                                Counseling
+                            </p>
+                            </div>
+                            
+                        </div>
 
                     <div className="bg-white rounded-lg shadow overflow-hidden">
                         <div className="p-4 bg-gradient-to-r from-[#4D2B8C] to-[#85409D]">

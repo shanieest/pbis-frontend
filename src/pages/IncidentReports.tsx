@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 import { Fragment, useState } from "react";
 import { FaChevronDown, FaChevronUp, FaWindowClose, FaEdit, FaTrashAlt } from "react-icons/fa";
 
@@ -240,23 +241,20 @@ export default function IncidentReports() {
             <div className="flex flex-col flex-1">
                 <Header />
                 <main className="flex-1 p-10 bg-gray-50">
-                    <div className="flex justify-between items-center mb-8">
-                        <h1 className="text-3xl font-bold font-serif text-black tracking-wide">
-                            Incident Reports
-                        </h1>
-                        <div className="flex gap-4">
-                            <button
-                                onClick={() => setIsAddModalOpen(true)}
-                                className="bg-[#8B5E83] text-white px-4 py-2 rounded hover:bg-[#6e4765] transition-colors"
-                            >
-                                Add Report
-                            </button>
-                            <button
-                                onClick={() => setIsExportModalOpen(true)}
-                                className="bg-[#58b2ed] text-white px-4 py-2 rounded hover:bg-[#3a8ec9] transition-colors"
-                            >
-                                Export
-                            </button>
+                    <div className="w-full max-w-6xl mx-auto px-6 mt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 items-end border-b-4 border-slate-900 pb-4 mb-8">
+                            <div>
+                            <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">
+                                Incident Reports
+                            </h1>
+                            <p className="text-blue-600 font-bold text-xs uppercase tracking-widest mt-1">
+                                <Link to="/dashboard">
+                                    Dashboard/ 
+                                </Link>
+                                Incident Reports
+                            </p>
+                            </div>
+                            
                         </div>
                     </div>
 
