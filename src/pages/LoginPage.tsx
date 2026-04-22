@@ -53,7 +53,7 @@ export default function LoginPage() {
                 ))}
             </div>
 
-            {clickCount >= 5 && (
+            {clickCount >= 5 &&   (
                 <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 backdrop-blur-[2px] animate-in fade-in duration-700">
                 <h2 className="text-white font-black text-1xl tracking-tighter mix-blend-overlay opacity-80">
                     Jarshane
