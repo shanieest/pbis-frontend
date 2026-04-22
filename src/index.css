@@ -53,10 +53,18 @@ animation: var(--animate-spin);
 }
 
 @theme {
-  @keyframes loop-scroll {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
-  }
+    @keyframes loop-scroll {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+    }
 
-  --animate-loop-scroll: loop-scroll 50s linear infinite;
+    --animate-loop-scroll: loop-scroll 50s linear infinite;
+}
+
+animation: var(--animate-pulse); /* pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite */
+
+@keyframes pulse {
+    50% {
+        opacity: 0.5;
+    }
 }

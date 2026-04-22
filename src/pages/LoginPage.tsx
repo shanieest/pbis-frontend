@@ -5,6 +5,7 @@ import Westfields from "../assets/Westfields.png";
 export default function LoginPage() {
     const navigate = useNavigate();
     const [error, setError] = useState<string>("");
+    const [clickCount, setClickCount] = useState(0);
 
     const validateForm = (email: string, password: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -20,6 +21,10 @@ export default function LoginPage() {
         return true;
     };
 
+    const handleClick = () => {
+    setClickCount((prev) => prev + 1);
+    };
+
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         const emailInput = (document.getElementById("email") as HTMLInputElement).value;
@@ -33,23 +38,30 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex flex-col duration-300 transition-all bg-linear-to-r from-[#4D2B8C] to-[#85409D] items-center justify-center">
 
-   <div className="w-full py-4 overflow-hidden bg-white/10 backdrop-blur-sm border-b border-white/20">
-                <div className="flex w-[200%]">
-                    <div className="flex animate-loop-scroll space-x-12 items-center px-6">
-                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
-                        <span className="text-white/70 whitespace-nowrap">★</span>
-                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
-                        <span className="text-white/70 whitespace-nowrap">★</span>                        
-                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
-                        <span className="text-white/70 whitespace-nowrap">★</span>                        
-                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
-                        <span className="text-white/70 whitespace-nowrap">★</span>                        
-                        <span className="text-white font-bold whitespace-nowrap">WESTFIELDS INTERNATIONAL SCHOOL</span>
-                        <span className="text-white/70 whitespace-nowrap">★</span>
-                    </div>
-
+        <div 
+            onClick={handleClick} 
+            className="w-full py-4 overflow-hidden bg-white/10 backdrop-blur-sm border-b border-white/20 cursor-pointer select-none"
+            >
+            {clickCount >= 5 ? (
+                <div className="px-6 text-white font-black opacity-10 animate-pulse">
+                Jarshane Tolentino
                 </div>
+            ) : (
+                <div className="flex w-max animate-loop-scroll items-center gap-12 px-6">
+                {[...Array(10)].map((_, i) => (
+                    <div key={i} className="flex items-center gap-12">
+                    <span className="text-white font-bold whitespace-nowrap">
+                        WESTFIELDS INTERNATIONAL SCHOOL
+                    </span>
+                    <span className="text-white/70 whitespace-nowrap"></span>
+                    </div>
+                ))}
+                </div>
+            )}
             </div>
+
+
+
 
             <div className="flex-1 flex items-center justify-center">
                 <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
