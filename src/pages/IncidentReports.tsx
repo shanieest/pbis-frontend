@@ -8,6 +8,7 @@ interface Incident {
     id?: number;
     date: string;
     behavior: string;
+    reportedBy: string;
     severity: "minor" | "moderate" | "severe";
 }
 
@@ -28,8 +29,8 @@ const sampleData: UserIncident[] = [
         firstName: "Juan",
         middleName: "Santos",
         incidents: [
-            { id: 1, date: "2023-10-01", behavior: "Disruptive behavior in class", severity: "minor" },
-            { id: 2, date: "2023-10-05", behavior: "Inappropriate language", severity: "moderate" }
+            { id: 1, date: "2023-10-01", behavior: "Disruptive behavior in class", severity: "minor", reportedBy:"Sinukuan, Maria" },
+            { id: 2, date: "2023-10-05", behavior: "Inappropriate language", severity: "moderate", reportedBy: "Sinukuan, Maria" }
         ]
     },
     {
@@ -39,9 +40,9 @@ const sampleData: UserIncident[] = [
         firstName: "Maria",
         middleName: "Reyes",
         incidents: [
-            { id: 3, date: "2023-08-20", behavior: "Physical altercation", severity: "severe" },
-            { id: 4, date: "2023-09-10", behavior: "Verbal warning", severity: "minor" },
-            { id: 5, date: "2023-10-02", behavior: "Detention assigned", severity: "moderate" }
+            { id: 3, date: "2023-08-20", behavior: "Physical altercation", severity: "severe", reportedBy: "Jusmiyo, Marimar" },
+            { id: 4, date: "2023-09-10", behavior: "Verbal warning", severity: "minor", reportedBy: "Jusmiyo, Marimar"},
+            { id: 5, date: "2023-10-02", behavior: "Detention assigned", severity: "moderate", reportedBy: "Jusmiyo, Marimar" }
         ]
     },
     {
@@ -51,7 +52,7 @@ const sampleData: UserIncident[] = [
         firstName: "Jose",
         middleName: "Garcia",
         incidents: [
-            { id: 6, date: "2023-09-15", behavior: "Tardiness", severity: "minor" }
+            { id: 6, date: "2023-09-15", behavior: "Tardiness", severity: "minor", reportedBy: "Pusong Sinaktan" }
         ]
     }
 ];
@@ -100,7 +101,8 @@ export default function IncidentReports() {
             id: Date.now(),
             date: incidentDate,
             behavior: incidentBehavior,
-            severity: incidentSeverity
+            severity: incidentSeverity,
+            reportedBy: ""
         };
 
         setData(prev => {
@@ -304,6 +306,7 @@ export default function IncidentReports() {
                                                                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
                                                                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Behavior</th>
                                                                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Severity</th>
+                                                                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">Reported By</th>
                                                                     <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">Actions</th>
                                                                 </tr>
                                                             </thead>
@@ -317,6 +320,11 @@ export default function IncidentReports() {
                                                                                 {incident.severity.toUpperCase()}
                                                                             </span>
                                                                         </td>
+                                                                        <td className="px-4 py-3">
+                                                                            <span className={`px-2 py-1 rounded text-xs font-semibold ${getSeverityColor(incident.reportedBy)}`}>
+                                                                                {incident.reportedBy.toUpperCase()}
+                                                                            </span>
+                                                                        </td>                                                                        
                                                                         <td className="px-4 py-3 text-right">
                                                                             <button
                                                                                 onClick={(e) => {
@@ -563,7 +571,6 @@ export default function IncidentReports() {
                         </div>
                     )}
 
-                    {/* Delete Incident Modal */}
                     {isDeleteModalOpen && selectedIncident && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">

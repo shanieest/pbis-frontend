@@ -7,6 +7,7 @@ import { FaChevronDown, FaChevronUp, FaWindowClose, FaEdit, FaExternalLinkAlt, F
 interface Incident {
     date: string;
     behavior: string;
+    reportedBy: string;
     id?: number;
 }
 
@@ -31,8 +32,8 @@ const sampleData: UserIncident[] = [
         middleName: "Santos",
         caseStatus: "active",
         incidents: [
-            { id: 1, date: "2023-10-01", behavior: "Minor incident - disruptive behavior" },
-            { id: 2, date: "2023-10-05", behavior: "Another incident - inappropriate language" }
+            { id: 1, date: "2023-10-01", behavior: "Minor incident - disruptive behavior", reportedBy: "Susmiyo, Maricar" },
+            { id: 2, date: "2023-10-05", behavior: "Another incident - inappropriate language", reportedBy: "Jusmiyo, Marimar" }
         ]
     },
     {
@@ -43,9 +44,9 @@ const sampleData: UserIncident[] = [
         middleName: "Reyes",
         caseStatus: "active",
         incidents: [
-            { id: 3, date: "2023-08-20", behavior: "Safety concern - bullying reported" },
-            { id: 4, date: "2023-09-10", behavior: "Follow-up counseling session" },
-            { id: 5, date: "2023-10-02", behavior: "Resolution - behavior improvement noted" }
+            { id: 3, date: "2023-08-20", behavior: "Safety concern - bullying reported", reportedBy: "EraserHeads" },
+            { id: 4, date: "2023-09-10", behavior: "Follow-up counseling session", reportedBy: "LANY" },
+            { id: 5, date: "2023-10-02", behavior: "Resolution - behavior improvement noted", reportedBy: "BTS" }
         ]
     },
     {
@@ -56,7 +57,7 @@ const sampleData: UserIncident[] = [
         middleName: "Garcia",
         caseStatus: "active",
         incidents: [
-            { id: 6, date: "2023-09-15", behavior: "Report filed - academic concerns" }
+            { id: 6, date: "2023-09-15", behavior: "Report filed - academic concerns", reportedBy: "Maem Shanet" }
         ]
     }
 ];
@@ -99,7 +100,8 @@ export default function Counseling() {
         const newIncident: Incident = {
             id: Date.now(),
             date: new Date().toISOString().split('T')[0],
-            behavior: `Modification: ${modifyNotes}`
+            behavior: `Modification: ${modifyNotes}`,
+            reportedBy: "Counselor"
         };
         
         setData(prev => prev.map(user =>
@@ -119,7 +121,8 @@ export default function Counseling() {
         const newIncident: Incident = {
             id: Date.now(),
             date: new Date().toISOString().split('T')[0],
-            behavior: `REFERRED OUT: ${referralReason} - Referred to: ${referralDestination}`
+            behavior: `REFERRED OUT: ${referralReason} - Referred to: ${referralDestination}`,
+            reportedBy: "Counselor"
         };
         
         setData(prev => prev.map(user =>
@@ -146,7 +149,8 @@ export default function Counseling() {
         const newIncident: Incident = {
             id: Date.now(),
             date: new Date().toISOString().split('T')[0],
-            behavior: `CASE CLOSED: ${closureReason} - Outcome: ${closureOutcome}`
+            behavior: `CASE CLOSED: ${closureReason} - Outcome: ${closureOutcome}`,
+            reportedBy: "Counselor"
         };
         
         setData(prev => prev.map(user =>
@@ -191,8 +195,8 @@ export default function Counseling() {
                 <Header />
                 <main className="flex-1 p-10 bg-gray-50">
                             
-                        <div className="grid grid-cols-1 md:grid-cols-2 items-end border-b-4 border-slate-900 pb-4 mb-8">
-                            <div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 items-end border-b-4 border-slate-900 pb-4 mb-8">
+                        <div>
                             <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">
                                 Counseling
                             </h1>
@@ -202,9 +206,8 @@ export default function Counseling() {
                                 </Link>
                                 Counseling
                             </p>
-                            </div>
-                            
                         </div>
+                    </div>
 
                     <div className="bg-white rounded-lg shadow overflow-hidden">
                         <div className="p-4 bg-gradient-to-r from-[#4D2B8C] to-[#85409D]">
@@ -261,6 +264,7 @@ export default function Counseling() {
                                                                         <tr className="bg-gray-200">
                                                                             <th className="border border-gray-300 px-4 py-2 text-left text-sm font-semibold text-gray-700">Date</th>
                                                                             <th className="border border-gray-300 px-4 py-2 text-left text-sm font-semibold text-gray-700">Behavior/Notes</th>
+                                                                            <th className="border border-gray-300 px-4 py-2 text-left text-sm font-semibold text-gray-700">Reported By</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -268,6 +272,7 @@ export default function Counseling() {
                                                                             <tr key={incident.id || i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                                                                                 <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.date}</td>
                                                                                 <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.behavior}</td>
+                                                                                <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">{incident.reportedBy}</td>
                                                                             </tr>
                                                                         ))}
                                                                     </tbody>
@@ -316,6 +321,7 @@ export default function Counseling() {
                         </div>
                     </div>
 
+                    {/* Modify Modal */}
                     {isModifyModalOpen && selectedUser && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
@@ -378,6 +384,7 @@ export default function Counseling() {
                         </div>
                     )}
 
+                    {/* Refer Out Modal */}
                     {isReferModalOpen && selectedUser && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
@@ -461,6 +468,7 @@ export default function Counseling() {
                         </div>
                     )}
 
+                    {/* Close Case Modal */}
                     {isCloseModalOpen && selectedUser && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">

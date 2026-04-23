@@ -42,7 +42,7 @@ export default function Dashboard() {
 
             <IncidentAnalytics />
 
-            <div className="mt-10 p-8 bg-white border-4 border-slate-900">
+            <div className="mt-10 p-8 bg-white">
                 <div className="border-b-2 border-slate-100 pb-2 mb-6">
                 <h2 className="text-xl font-black uppercase tracking-tight text-slate-800">
                     Activity Logs
