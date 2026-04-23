@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import { Fragment, useState } from "react";
 import { FaChevronDown, FaChevronUp, FaWindowClose, FaEdit, FaTrashAlt, FaFileExport, FaPlus } from "react-icons/fa";
-import * as XLSX from 'xlsx';
 
 interface Incident {
     id?: number;
@@ -249,22 +248,6 @@ export default function IncidentReports() {
             }))
         );
 
-        // Create worksheet
-        const worksheet = XLSX.utils.json_to_sheet(excelData);
-        
-        // Auto-size columns (basic approach)
-        const maxWidths = Object.keys(excelData[0] || {}).map(key => ({
-            wch: Math.max(key.length, ...excelData.map(row => String(row[key as keyof typeof row]).length))
-        }));
-        worksheet['!cols'] = maxWidths;
-
-        // Create workbook
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Incident Reports");
-
-        // Export file
-        XLSX.writeFile(workbook, `incident-reports-${new Date().toISOString().split('T')[0]}.xlsx`);
-        setIsExportModalOpen(false);
     };
 
     const getSeverityColor = (severity: string) => {
@@ -304,7 +287,7 @@ export default function IncidentReports() {
                                 </button>
                                 <button
                                     onClick={() => setIsExportModalOpen(true)}
-                                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+                                    className="bg-[#5B7E3C] hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                                 >
                                     <FaFileExport /> Export
                                 </button>
@@ -635,7 +618,7 @@ export default function IncidentReports() {
                     {isExportModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 bg-black/60 backdrop-blur-sm transition-opacity">
                             <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
-                                <div className="bg-green-600 text-white p-6 rounded-t-2xl">
+                                <div className="bg-[#5B7E3C] text-white p-6 rounded-t-2xl">
                                     <div className="flex items-center justify-between">
                                         <h2 className="text-2xl font-semibold">Export Reports</h2>
                                         <button onClick={() => setIsExportModalOpen(false)} className="text-white/80 hover:text-white"><FaWindowClose className="text-2xl" /></button>
@@ -645,7 +628,7 @@ export default function IncidentReports() {
                                     <p className="text-gray-700 mb-4">Choose your export format:</p>
                                     <div className="flex gap-4">
                                         <button onClick={downloadCSV} className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-center">CSV Format</button>
-                                        <button onClick={downloadExcel} className="flex-1 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-center">Excel Format</button>
+                                        <button onClick={downloadExcel} className="flex-1 px-4 py-3 bg-[#5B7E3C] text-white rounded-lg hover:bg-green-700 transition-colors text-center">Excel Format</button>
                                     </div>
                                 </div>
                             </div>

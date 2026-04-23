@@ -41,7 +41,7 @@ export default function IncidentAnalytics() {
         <div className="w-full">
             <div className="grid grid-cols-3 gap-6 mb-8">
                 <Link to="/incident-reports">
-                    <div className="bg-white p-6 rounded-lg shadow-md bg-gradient-to-r from-blue-50 to-blue-100">
+                    <div className="bg-white p-6 rounded-lg shadow-md bg-gradient-to-r from-blue-50 to-blue-300">
                         <p className="text-gray-600 text-sm font-medium animate-bounce">Total Incidents</p>
                         <p className="text-3xl font-bold text-blue-600 mt-2">{totalIncidents}</p>
                         <p className="text-gray-500 text-xs mt-2">Avg: {avgTotal}/week</p>
@@ -49,7 +49,7 @@ export default function IncidentAnalytics() {
                 </Link>
 
                 <Link to="/incident-reports">
-                    <div className="bg-white p-6 rounded-lg shadow-md bg-gradient-to-r from-yellow-50 to-yellow-100">
+                    <div className="bg-white p-6 rounded-lg shadow-md bg-gradient-to-r from-yellow-50 to-yellow-300">
                         <p className="text-gray-600 text-sm font-medium animate-bounce">Minor Incidents</p>
                         <p className="text-3xl font-bold text-yellow-500 mt-2">{totalMinor}</p>
                         <p className="text-gray-500 text-xs mt-2">Avg: {avgMinor}/week</p>
@@ -57,7 +57,7 @@ export default function IncidentAnalytics() {
                 </Link>
 
                 <Link to="/counseling">
-                    <div className="bg-white p-6 rounded-lg shadow-md bg-gradient-to-r from-red-50 to-red-100">
+                    <div className="bg-white p-6 rounded-lg shadow-md bg-gradient-to-r from-red-50 to-red-300">
                         <p className="text-gray-600 text-sm font-medium animate-bounce">Severe/Moderate</p>
                         <p className="text-3xl font-bold text-red-600 mt-2">{totalSevere}</p>
                         <p className="text-gray-500 text-xs mt-2">Avg: {avgSevere}/week</p>

@@ -19,7 +19,7 @@ export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
-        <aside className={`bg-[#4D2B8C] text-white p-4 transition-all duration-300 min-h-screen sticky top-0 flex flex-col ${isOpen ? "w-64" : "w-20"}`}>
+        <aside className={`bg-[#4D2B8C] opacity-85 text-white p-4 transition-all duration-300 min-h-screen sticky top-0 flex flex-col ${isOpen ? "w-64" : "w-20"}`}>
             <button 
                 onClick={() => setIsOpen(!isOpen)}
                 className="mb-8 p-2 hover:bg-white/10 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 rounded-b-md flex items-center"
